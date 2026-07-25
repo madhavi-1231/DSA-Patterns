@@ -1,0 +1,11 @@
+| If the question says...        | Pattern                 | Data Structure    |
+| ------------------------------ | ----------------------- | ----------------- |
+| Every subarray of size K       | Fixed Window            | Variables         |
+| Maximum sum of size K          | Fixed Window            | Variables         |
+| Longest substring              | Variable Window         | HashSet / HashMap |
+| Smallest subarray              | Variable Window         | Variables         |
+| At most K distinct             | Variable Window         | HashMap           |
+| Count distinct in every window | Fixed Window            | HashMap           |
+| First negative in every window | Fixed Window            | Queue             |
+| Maximum in every window        | Fixed Window            | Deque             |
+| Exactly K                      | AtMost(K) − AtMost(K−1) | HashMap/Variables |
