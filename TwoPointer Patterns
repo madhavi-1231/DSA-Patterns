@@ -1,0 +1,7 @@
+| Pattern                         | Number of Pointers | Direction                        | Common Use Cases      | Example Problems             |
+| ------------------------------- | ------------------ | -------------------------------- | --------------------- | ---------------------------- |
+| Opposite Direction              | 2                  | Toward each other                | Sorted arrays, pairs  | Two Sum II, Palindrome       |
+| Same Direction (Sliding Window) | 2                  | Left → Right                     | Subarrays, substrings | Longest Substring, Max Sum K |
+| Fast & Slow                     | 2                  | Same direction, different speeds | Linked lists, cycles  | Middle Node, Cycle Detection |
+| Three Pointers                  | 3                  | Mixed                            | Partitioning          | Sort Colors                  |
+| Multiple Arrays                 | 2+                 | Across different arrays          | Merge, intersection   | Merge Sorted Arrays          |
