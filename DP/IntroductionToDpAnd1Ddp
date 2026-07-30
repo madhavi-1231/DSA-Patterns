@@ -1,0 +1,168 @@
+Dynamic Programmin:
+===========================
+dynamic approach is described as storing values and used in various subproblems whenever it is require.
+two types of approaches:
+1.memoization
+=======================
+known as top down approach 
+2.tabulation
+=============
+bottom up approach
+
+problem solving on:
+1.recursion based
+  ----------------------------
+steps:
+1.base case(base case is based  one element)
+2.explore all the possibilities
+3.return minimum,maximum,count like 
+
+2.recursion is converted into memorization
+-----------------------------------------------
+1.create a dp array initialized to -1.
+2.first we check whether the ans is already calculated or not.if yeas return that value from the dp array.
+3.if not finding the ans based on recursive solution and stored it in a dp array;
+
+3.tabulation
+--------------------------
+1.declare a dp array of size n+1;
+2.first initialize the base condition values .
+3. set an iterative loop  that traverses the array and every index set its value 
+
+
+
+Climbing Stairs
+================
+recursion:
+-------------------
+
+stairs(n);
+}
+stairs(int n){
+if(n==0 || n==1){
+return 1;
+}
+return climb(n-1)+climb(n-2);
+}
+
+
+memorization
+-----------------
+int dp[]=new int[n+1];
+Arrays.fill(dp,-1);
+if(index==0 || index==1){
+return 0;
+}
+if(dp[index]!=-1){
+retrun dp[index];
+}
+return dp[index]=climb(index-1)+climb(index-2);
+
+FrogJump
+--------
+recursion
+================
+if(index==0){
+return 0;
+}
+int notTake=jumps(index-1)+Math.abs(arr[index]-arr[index-1]);
+int take=Integer.MAX_VALUE;
+if(index>1){
+int take=jumps(index-2)+Math.abs(arr[index]-arr[index-2]);
+}
+return Math.min(notTake,take);
+
+//memoization
+==================
+int dp[]=new int[n+1];
+Arrays.fill(dp,-1);
+if(index==0){
+return 0;
+}
+if(dp[index]!=-1){
+return dp[index];
+int notTake=jumps(index-1)+Math.abs(arr[index]-arr[index-1]);
+int take=Integer.MAX_VALUE;
+if(index>1){
+int take=jumps(index-2)+Math.abs(arr[index]-arr[index-2]);
+}
+return dp[index]=Math.min(notTake,take);
+}
+
+//////tabulation
+=======================
+int dp[]=new int[n];
+if(index==0){
+return 0;
+}
+dp[0]=0;
+for(int i=1;i<n;i++){
+int jumpOne=dp[i-1]+Math.abs(arr[i]-arr[i-1]);
+int jump2=Integer.MAX_VALUE;
+if(i>1){
+jump2=dp[i-2]+Math.abs(arr[i]-arr[i-2]);
+}
+dp[i]=min(jumpone,jumptwo}
+}
+
+maximum Number of non-adjacent  elements
+===========================================
+memoization
+==============
+int dp[]=new int[n];
+Array.fill(dp,-1);
+if(index==0){
+return arr[0];
+}
+if(index<0){
+return 0;
+}
+if(dp[index]!=-1){
+return dp[index];
+}
+int take=pick(index-2)+arr[index];
+int notTake=pick(index-1);
+return dp[index]=Math.max(take,notTake);
+
+tabulation
+===========
+int dp[]=new int[n];
+dp[0]=arr[0];
+for(int i=1;i<n;i++){
+int take=arr[i];
+if(i>1){
+int take+=pick(i-2)+arr[index-2];
+}
+int notTake=pick(index-1);
+
+ dp[index]=Math.max(take,notTake);
+return dp[n-1];
+}
+
+
+
+////house robber is same as the maximum number of non-adjacent elements
+=================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
