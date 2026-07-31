@@ -1,0 +1,202 @@
+Ninja Training
+====================
+recursion
+----------------------------
+public class NinjasTraining123 {
+
+    public static void main(String[] args) {
+
+        int matrix[][] = {
+                {10, 40, 70},
+                {20, 50, 80},
+                {30, 60, 90}
+        };
+
+        int n = matrix.length;
+
+        System.out.println(ninja(matrix, n - 1, 3));
+    }
+
+    static int ninja(int matrix[][], int day, int last) {
+
+        if (day == 0) {
+
+            int maxi = 0;
+
+            for (int task = 0; task < 3; task++) {
+                if (task != last) {
+                    maxi = Math.max(maxi, matrix[0][task]);
+                }
+            }
+
+            return maxi;
+        }
+
+        int maxi = 0;
+
+        for (int task = 0; task < 3; task++) {
+
+            if (task != last) {
+
+                int points = matrix[day][task]
+                           + ninja(matrix, day - 1, task);
+
+                maxi = Math.max(maxi, points);
+            }
+        }
+
+        return maxi;
+    }
+}
+memoization
+==========================
+same like above code add dp array
+
+
+grid unique paths:
+==================
+m=3;int n=2;
+paths(m-1,n-1,grids,dp);
+}
+if(i==0 && j==0){
+return 1;
+}
+if(i==0 || j==0){
+return 0;
+}
+int left=paths(i,j-1,grids,dp);
+int right=paths(i-1,j,dp);
+dp[i][j]=left+right;
+}
+
+
+
+///grid unique path2:
+==================
+m=3;int n=2;
+paths(m-1,n-1,grids,dp);
+}
+if(i==0 || j==0 || matrix[i][j)==1){
+return 0;
+}
+
+if(i==0 && j==0){
+return 1;
+}
+int left=paths(i,j-1,grids,dp);
+int right=paths(i-1,j,dp);
+dp[i][j]=left+right;
+}
+
+//tabulation
+=================
+for(int i=0;i<n;i++){
+for(int j=0;j<n;j++){
+if(matrix[i][j]==1){
+return 0;
+}if(i==0 && j==0){
+return 1;
+}
+int up=0;
+int left=0;
+if(i>0){
+
+up=dp[i-1][j];
+}
+if(j>0){
+left=dp[i][j-1];
+}
+dp[i][j]=up+left;
+}
+}
+return dp[n-1][m-1];
+}
+minimum path sum in a grid
+=============================
+
+recursion
+=============
+(i==0 && j==0){
+return a[0][0];
+}
+if(i<0 || b<0){
+return 0;
+}
+int up=matrix[i][j]+f(i-1,j,arr);
+int left=matrix[i][j]+f(i,j-1,arr);
+return min=Math.min(up,left);
+}
+}
+memorization
+==================
+int dp[][]=new int[n][n];
+for(int i=0;i<n;i++){
+Arrays.fill(dp[i],-1);
+}
+if(dp[i][j]!=-1){
+return dp[i][j];
+}
+(i==0 && j==0){
+return a[0][0];
+}
+if(i<0 || b<0){
+return 0;
+}
+int up=matrix[i][j]+f(i-1,j,arr);
+int left=matrix[i][j]+f(i,j-1,arr);
+return dp[i][j]=Math.min(up,left);
+}
+}
+
+triangle
+===============
+
+int dp[][]=new int[n][n];
+for(int i=0;i<n;i++){
+Arrays.fill(dp[i],-1);
+}
+if(dp[i][j]!=-1){
+return dp[i][j];
+}
+(i==n-1){
+return ;
+}
+if(i<0 || b<0){
+return 0;
+}
+int up=matrix[i][j]+f(i+1,j,arr);
+int left=matrix[i][j]+f(i+1,j+1,arr);
+return dp[i][j]=Math.min(up,left);
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
