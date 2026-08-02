@@ -1,0 +1,281 @@
+DP on Subsequences
+==========================
+subset  sum equal to target
+-------------------------------
+recursion
+==========
+subsetSum(arr,n-1,target);
+static subsetSum(int arr[],int index,int target){
+if(target==0){
+return true;
+}
+if(index==0){
+if(target==0){
+
+return arr[index]==target;
+}
+}
+int notTake=subsetSum(arr,index-1,target);
+int take=false;
+if(arr[index]<=target){
+int take=subsetSum(arr,index-1,target-1);
+}
+return take || not Take;
+
+
+memorization
+================
+int dp[][]=new dp[index][target+1];
+subset(arr,n-1,target,dp);
+void subsetSum(int arr[],int index,int target){
+if(target==0){
+return true;
+}
+if(index==0){
+return arr[index]==target;
+}
+if(dp[index][target]!=-1){
+return dp[index][index];
+boolean notTake=subsetSum(arr,index-1,target);
+boolean take=false;
+if(arr[index]<=target){
+int take=subsetSum(arr,index-1,target-arr[index]);
+}
+retur dp[index][target]=(take||notTake)?1:0;;
+
+
+tabulation
+=================
+boolean [][]dp=boolean[n][k+1];
+for(int i=0;i<n;i++){
+dp[i][0]=true;
+}
+if(arr[0]<=target){
+dp[0][arr[0]]=true;
+}
+for(int i=1;i<n;i++){
+for(int target=1;target<=k;target++){
+boolean notTake=dp[ind-1][target];
+boolean taken=false;
+if(arr[index]<=target){
+take=dp[index-1][target-arr[index]];
+}
+dp[index][target]=take || notTake;
+
+
+Partition Equal Subset Sum :
+==================================
+recursion
+=============
+int n=nums.length-1;
+int sum=0;
+for(int i=0;i<nums.length;i++){
+     sum+=arr[i];
+}
+int target=sum/2;
+parition(nums,n,target);
+}
+static void partition(int nums,int index,int target){
+
+if(target==0){
+return true;
+}
+if(index==0){
+return arr[index]==target;
+}
+int notTake=partition(nums,index-1,target);
+int take=false;
+if(arr[index]<=target){
+take=partition(nums,index-1,target-arr[index]);
+}
+
+return take || notTake;
+
+same like memization and tabulation of previous ones
+===================================
+Partition Set Into 2 Subsets With Min Absolute Sum Diff
+===============================================
+recursion
+=============
+subset(arr,0,sum1,sum2);
+static  int subsetsum(int arr[],int index,int sum1,int sum2){
+    if(index==arr.length){
+        return Math.abs(sum1-sum2);
+}
+int take=subsetsum(arr,index+1,sum1+nums[index],sum2);
+int nottake=subset(arr,index+1,sum1,sum2+nums[index]);
+retunr Math.min(take,notTake);
+}
+
+memoization
+=================
+class Solution {
+
+    int totalSum;
+    Integer[][] dp;
+
+    public int minimumDifference(int[] nums) {
+
+        totalSum = 0;
+
+        for (int num : nums)
+            totalSum += num;
+
+        dp = new Integer[nums.length][totalSum + 1];
+
+        return solve(0, 0, nums);
+    }
+
+    private int solve(int index, int sum1, int[] nums) {
+
+        if (index == nums.length) {
+
+            int sum2 = totalSum - sum1;
+            return Math.abs(sum1 - sum2);
+        }
+
+        if (dp[index][sum1] != null)
+            return dp[index][sum1];
+
+        // Put current element in subset1
+        int take = solve(index + 1, sum1 + nums[index], nums);
+
+        // Put current element in subset2
+        int notTake = solve(index + 1, sum1, nums);
+
+        return dp[index][sum1] = Math.min(take, notTake);
+    }
+}
+
+
+
+
+countSubsets with sum k
+========================
+solve(int index,int tarrget,int nus,int dp[][]){
+if(target==0){
+return 	1;
+}
+if(index==0){
+rturn nums[0]==target?1:0;
+if(dp[index][target]!=-1){
+return dp[index][target];
+}
+
+        // Case 1: Exclude current element
+        int notTake = solve(index - 1, target, nums, dp);
+
+        // Case 2: Include current element (if it is not greater than target)
+        int take = 0;
+        if (nums[index] <= target) {
+            take = solve(index - 1, target - nums[index], nums, dp);
+        }
+
+        // Store result in dp and return
+        return dp[index][target] = take + notTake;
+    }
+}
+
+AssignCookies
+=========================
+
+student[]={1,2,3}
+coolie[]={1,1};
+int i=0;
+int j=0;
+while(i>0 && j>0){
+if(cookie[j]<student[i]){
+i++;
+}
+else{
+i++;
+j++;
+}
+}
+return j;
+
+minimum coins
+==================
+public class MiniCoins {
+    public static void main(String[] args){
+        int coins[]={2,5};
+        int amount=3;
+        int n=coins.length;
+        System.out.println(miniCount(coins,n-1,amount));
+    }
+    static int miniCount(int coins[],int index,int target){
+          if(index==0){
+              if(target%coins[0]==0){
+                return target/coins[0];
+              }
+              return Integer.MAX_VALUE;
+          }
+        int notTake=miniCount(coins,index-1,target);
+        int take=Integer.MAX_VALUE;
+        if(coins[index]<=target){
+            take=1+miniCount(coins,index,target-coins[index]);
+        }
+        return Math.min(take,notTake);
+    }
+}
+
+
+target sum
+======================
+for 5 numbers,each number has 2 choices
++1 or -1
+total=2 power(5)
+try all the combinations whose sum is 3 it takes more time but dp gives better solution
+
+
+
+
+nums[]=[1,1,1,1,1]
+int target=3;
+totalSum=5;
+p=(totalSum+target)/2;
+
+
+
+
+coin change ways
+==========================
+public class MiniCoins {
+    public static void main(String[] args){
+        int coins[]={2,5};
+        int amount=3;
+        int n=coins.length;
+        System.out.println(miniCount(coins,n-1,amount));
+    }
+    static int miniCount(int coins[],int index,int target){
+          if(index==0){
+              if(target%coins[0]==0){
+                return 1;
+              }
+              return 0;
+          }
+        int notTake=miniCount(coins,index-1,target);
+        int take=Integer.MAX_VALUE;
+        if(coins[index]<=target){
+            take=1+miniCount(coins,index,target-coins[index]);
+        }
+        return take+notTake;;
+    }
+}
+
+
+unbounded knapsack
+======================
+int w=8;
+int wt[]={2,4,6}
+int val={5,11,13}'
+if(index==0){return (w/wt[0])*val[0];
+}
+int notTake=knapsack(index-1,w,wt,val);
+int take=Integer.MIN_VALUE;
+if(wt[index]<=w){
+int take=val[index]+knapsack(index-1,w-wt[i],wt,val);
+}
+return Math.min(notTake,take);
+}
+}
