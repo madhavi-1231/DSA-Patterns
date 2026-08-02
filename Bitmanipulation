@@ -1,0 +1,269 @@
+# Bit Manipulation Notes
+
+## 1. Count Set Bits
+
+### Method 1: Right Shift
+
+```java
+int count = 0;
+
+while(n != 0) {
+    if((n & 1) == 1) {
+        count++;
+    }
+    n = n >> 1;
+}
+
+return count;
+```
+
+### Method 2: Brian Kernighan's Algorithm
+
+```java
+int count = 0;
+
+while(n != 0) {
+    n = n & (n - 1);
+    count++;
+}
+
+return count;
+```
+
+---
+
+# 2. Single Number II (Two Unique Numbers)
+
+### Steps
+
+1. XOR all elements.
+2. Find the rightmost set bit.
+3. Divide elements into two groups based on that bit.
+4. XOR elements of each group.
+
+```java
+class Solution {
+    public int[] singleNum(int[] arr) {
+
+        int xorAll = 0;
+
+        for(int ele : arr) {
+            xorAll ^= ele;
+        }
+
+        int setBit = xorAll & -xorAll;
+
+        int num1 = 0;
+        int num2 = 0;
+
+        for(int num : arr) {
+
+            if((num & setBit) != 0) {
+                num1 ^= num;
+            }
+            else {
+                num2 ^= num;
+            }
+        }
+
+        if(num1 < num2) {
+            return new int[]{num1, num2};
+        }
+
+        return new int[]{num2, num1};
+    }
+}
+```
+
+---
+
+# 3. Power Set Using Bit Masking
+
+```java
+List<String> list = new ArrayList<>();
+
+int n = str.length();
+
+for(int mask = 0; mask < (1 << n); mask++) {
+
+    StringBuilder sb = new StringBuilder();
+
+    for(int i = 0; i < n; i++) {
+
+        if((mask & (1 << i)) != 0) {
+            sb.append(str.charAt(i));
+        }
+    }
+
+    list.add(sb.toString());
+}
+```
+
+Time Complexity: O(n × 2ⁿ)
+
+---
+
+# 4. Check Whether Number Has Exactly One Set Bit
+
+Formula:
+
+```java
+(n & (n - 1)) == 0
+```
+
+Example:
+
+```java
+if(n <= 0 || (n & (n - 1)) != 0) {
+    return -1;
+}
+```
+
+---
+
+# 5. Find Position of the Only Set Bit
+
+```java
+if(n <= 0 || (n & (n - 1)) != 0) {
+    return -1;
+}
+
+int pos = 1;
+
+while((n & 1) == 0) {
+    pos++;
+    n >>= 1;
+}
+
+return pos;
+```
+
+---
+
+# 6. Set a Bit
+
+To make a bit become 1:
+
+```java
+num |= (1 << i);
+```
+
+---
+
+# 7. Copy Set Bits
+
+Check whether ith bit is set:
+
+```java
+(y & (1 << i)) != 0
+```
+
+If yes:
+
+```java
+x |= (1 << i);
+```
+
+---
+
+# 8. Indexing in Bit Manipulation
+
+### 0-Based Indexing
+
+```java
+1 << i
+```
+
+### 1-Based Indexing
+
+```java
+1 << (i - 1)
+```
+
+---
+
+# 9. Common Bit Operations
+
+### Check ith Bit
+
+```java
+(n & (1 << i)) != 0
+```
+
+### Set ith Bit
+
+```java
+n | (1 << i)
+```
+
+### Clear ith Bit
+
+```java
+n & ~(1 << i)
+```
+
+### Toggle ith Bit
+
+```java
+n ^ (1 << i)
+```
+
+---
+
+# 10. Count Bit Flips
+
+Steps:
+
+1. XOR the two numbers.
+2. Count set bits in the XOR result.
+
+```java
+int xor = a ^ b;
+int count = 0;
+
+while(xor != 0) {
+    xor = xor & (xor - 1);
+    count++;
+}
+
+return count;
+```
+
+---
+
+# 11. Square of a Number Without *
+
+```java
+if(n < 0) {
+    n = -n;
+}
+
+int res = n;
+
+for(int i = 1; i < n; i++) {
+    res += n;
+}
+
+return res;
+```
+
+Time Complexity: O(n)
+
+---
+
+# 12. Check Whether a Number Is a Power of Two
+
+Formula:
+
+```java
+n > 0 && (n & (n - 1)) == 0
+```
+
+Examples:
+
+```java
+8  -> true
+16 -> true
+10 -> false
+12 -> false
+```
