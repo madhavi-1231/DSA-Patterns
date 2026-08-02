@@ -1,0 +1,274 @@
+Dp On Strings
+=========================
+Longest Common Subsequences
+==============================
+Ex:str1="abcd" str2="bdef"
+output:"bd"
+int m=str1.length()-1;
+int n=str2.length()-1;
+intdp[][]=new int[m+1][n+1];
+lcs(m,n,dp,str1,str2);
+}
+static int lcs(int m,int n,int dp[][],String str1,String str2){
+for(int i=1;i<=str1.length();i++){
+for(int j=1;j<=str2.length();j++){
+if(str1.charAt(i-1)==str2.charAt(j-1)){
+dp[i][j]=1+dp[i-1][j-1];
+}
+else{
+dp[i][j]=Math.max(dp[i-1][j],dp[i][j-1]);
+}
+}
+return dp[m][n];
+}
+int i=m;int j=n;
+StringBuilder sb=new StringBuilder();
+while(i>0 && j>0){
+if(str1.charAt(i-1)==str2.charAt(j-1)){
+ab.appned(str1.charAt(i-1));
+i--;
+j--;
+}
+else if(dp[i-1][j]>dp[i][j-1]){
+i--;
+}
+else{
+j--;
+}
+}
+s.o.p(sb.reverse().toString());
+
+print common substring
+=============================
+
+String str1="abcde"
+String str2="abfce"
+int m=str1.length();
+int n=str2.length();
+
+int dp[][]=new int[m+1][n+1];
+lcstring(m-1,n-1,dp,str1,str2);
+}
+static void lcsString(int m,int n,int dp[][],String str1,String str2){
+for(int i=1;i<=m;i++){
+for(int j=1;j<=n;j++){
+if(str1.charAt(i-1)==str2.charAt(j-1)){
+dp[i][j]=1+dp[i-1][j-1];
+ans=Nath.max(ans,dp[i][j]);
+}
+else{
+dp[i][j]=0;
+}
+}
+return dp[m][n];
+
+Longest Palindromic subsequence
+==================================
+String s="eeeme"
+
+approach is:
+================
+1)To find longest palindromic subsequence initially create a string that should be the reverse of original string passed as parameters to the function 
+2.then find the longest common subsequence length;
+ex:
+s="eeeme"
+StringBuilder sb=new StringBuilder(s);
+String rev=sb.reverse().toString();
+lcs(s,rev);
+}
+static int lcs(String s,String rev){
+int m=s.length();
+int n=rev.length();
+int dp[][]=new int[m+1][n+1];
+for(int i=1;i<=m;i++){
+for(int j=1;j<=n;j++){
+if(s.charAt(i-1)==rev.charAt(j-1)){
+dp[i][j]=1+dp[i-1][j-1];
+}
+else{
+dp[i][j]=Math.max(dp[i-1][j],dp[i][j-1]);
+}
+}
+}
+return dp[m][n];
+}
+}
+minimum number of insertions to ke string palindrome
+========================================================
+ex: s="abcaa"
+1.initially reverse the string
+2.pass as a parameter to the function
+3.find lcs
+4.return n--lcs length
+
+StringBuilder sb=new StringBuilder(s);
+String rev=sb.reverse().toString();
+int k=lcs(s,rev);
+return rev.length()-k;
+}
+static int lcs(String s,String rev){
+int m=s.length();
+int n=rev.length();
+int dp[][]=new int[m+1][n+1];
+for(int i=1;i<=m;i++){
+for(int j=1;j<=n;j++){
+if(s.charAt(i-1)==rev.charAt(j-1)){
+dp[i][j]=1+dp[i-1][j-1];
+}
+else{
+dp[i][j]=Math.max(dp[i-1][j],dp[i][j-1]);
+}
+}
+}
+return dp[m][n];
+}
+}
+
+minimum of insertions /deletions to convert string 
+=======================================================
+1.delete any number of characters from string str1
+2.insert any number of charaters into the string str1
+  
+ex1:str1="kitten"
+sstr2="sitting"
+1.find the lcs of two strings 
+2.after finding lcs find minimum deletions amd insertions
+3.deletions=str1.length()-lcs
+4.insertions=str2.length()-lcs
+5.return insertions and deletions
+ ex:
+=================
+string s="kitten"
+string t="sitting"
+return s.length()-k+t.length();
+}
+static int lcs(String s,String rev){
+int m=s.length();
+int n=rev.length();
+int dp[][]=new int[m+1][n+1];
+for(int i=1;i<=m;i++){
+for(int j=1;j<=n;j++){
+if(s.charAt(i-1)==rev.charAt(j-1)){
+dp[i][j]=1+dp[i-1][j-1];
+}
+else{
+dp[i][j]=Math.max(dp[i-1][j],dp[i][j-1]);
+}
+}
+}
+return dp[m][n];
+}
+}
+shortest common supersequence:all the character should be present in the minimumstring 
+======================================
+ public String shortestSupersequence(String s1, String s2) {
+
+        // Get the lengths of both strings
+        int n = s1.length();
+        int m = s2.length();
+
+        // Create a 2D DP array to store lengths of LCS
+        int[][] dp = new int[n + 1][m + 1];
+
+        // Fill the DP array using bottom-up tabulation
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+
+                // If characters match, add 1 to diagonal value
+                if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                } 
+                
+                // Otherwise, take the max from left or top cell
+                else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+StringBuilder ans = new StringBuilder();
+
+        // Start from bottom-right corner of the table
+        int i = n, j = m;
+
+        // Traverse the table in reverse to build supersequence
+        while (i > 0 && j > 0) {
+
+            // If characters match, add to answer and move diagonally
+            if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
+                ans.append(s1.charAt(i - 1));
+                i--;
+                j--;
+            }
+
+            // Move in the direction of larger value
+            else if (dp[i - 1][j] > dp[i][j - 1]) {
+                ans.append(s1.charAt(i - 1));
+                i--;
+            } else {
+                ans.append(s2.charAt(j - 1));
+                j--;
+            }
+        }
+
+        // Append remaining characters from s1
+        while (i > 0) {
+            ans.append(s1.charAt(i - 1));
+            i--;
+        }
+
+        // Append remaining characters from s2
+        while (j > 0) {
+            ans.append(s2.charAt(j - 1));
+            j--;
+        }
+
+        // Reverse the result since it was built backwards
+        return ans.reverse().toString();
+    }
+}
+
+
+distinct subsequences
+================================
+public class DistinctSubsequences {
+    public static void main(String[] args){
+        String s="axbxax";
+        String t="axa";
+        int i=s.length()-1;
+        int j=t.length()-1;
+        countDistinct(i,j,s,t);
+    }
+    static int countDistinct(int i,int j,String s,String t){
+         if(j<0){
+            return 1;
+         }
+        if(i<0){
+            return 0;
+        }
+             if(s.charAt(i)==t.charAt(j)){
+                return countDistinct(i-1,j-1,s,t) +countDistinct(i-1,j,s,t);
+             }
+             else{
+                return countDistinct(i-1,j,s,t);
+             }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
