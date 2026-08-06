@@ -120,6 +120,229 @@ moores voting algo
         System.out.println(cnt+" "+ele);
     }
 }
+Kadens Algorithm
+========================
+brute force
+===================
+
+for(int i=0;i<n;i++){
+    int sum=0;
+    for(int j=i;j<n;j++){
+        sum+=arr[j];
+        max=Math.max(maxi,sum);
+}
+    }
+}
+optimal
+===============
+we can think like above we use  hashmap but here we dont use use here because the target value is not given
+program:
+=========
+int sum=0;
+for(int i=0;i<arr.length;i++){
+sum+=arr[i];
+if(sum>maxi){
+maxi=sum;
+}
+if(sum<0){
+sum=0;
+}
+}
+return maxi;
+stock buy and sell
+==================
+int minPrice=Integer.MAX_VALUE;
+for (int price : prices) {
+if (price < minPrice) {
+     minPrice = price;
+}
+else {
+maxProfit = Math.max(maxProfit, price - minPrice);
+}
+}
+Rearrange Arrayy Elements
+==========================
+ArrayList<Integer> pos=new ArrayList<>();
+ArrayList<Integer> neg=new ArrayList<>();
+for(int i=0;i<arr.length;i++){
+if(arr[i]>0){
+pos.add(arr[i]);
+}
+else{
+neg.add(arr[i]);
+}
+}
+for(int i=0;i<arr.length/2;i++){
+arr[2*i]=pos.get(i);
+arr[2*i+1]=neg.get(i);
+}
+leaders in Array
+==================
+brute force
+=============== O(n2)  sc O(1)
+arr.add(ar.get(arr.length-1));
+maxi=arr.get(arr.length-1;
+for(int i=n-2;i>=0;i--){
+if(arr[i]>maxi){
+al.add(arr[i]);
+maxi=nums[i];
+}
+}
+set Matrix zeroes
+==================
+brute force
+================
+1.first findout the value 0 
+2. if 0 found marks the entire row and col as -1
+3.if -1 occur make it to 0;
+better
+===========
+boolean row[]=new boolean[n];
+boolean col[]=new boolean[n];
+for(int i=0;i<arr.length;i++){
+for(int j=0;j<arr.length;j++){
+if(arr[i][j]==0){
+row[i]=true;
+col[i]=true;
+}
+}}
+for(int i=0;i<arr.length;i++){
+for(int j=0;j<arr.length;j++){
+if(row[i] || col[i]){
+arr[i][j]=0;
+}
+}
+}
+
+class Solution {
+    public void setZeroes(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+
+        int col0 = 1;
+
+        // Mark rows and columns
+        for (int i = 0; i < m; i++) {
+
+            if (matrix[i][0] == 0)
+                col0 = 0;
+
+            for (int j = 1; j < n; j++) {
+                if (matrix[i][j] == 0) {
+                    matrix[i][0] = 0;
+                    matrix[0][j] = 0;
+                }
+            }
+        }
+
+        // Fill from bottom-right
+        for (int i = m - 1; i >= 0; i--) {
+            for (int j = n - 1; j >= 1; j--) {
+
+                if (matrix[i][0] == 0 || matrix[0][j] == 0)
+                    matrix[i][j] = 0;
+            }
+
+            if (col0 == 0)
+                matrix[i][0] = 0;
+        }
+    }
+}
+set Matrix zeroes
+===================
+brute force
+=============
+for(int i=0;i<arr.length;i++){
+for(int j=0;j<arr.length;j++){
+ rotated[j][n - i - 1] = matrix[i][j];}
+}
+optimal
+==============
+1.transpose of the matrix
+2.reverse each row;
+for(int i=0;i<matrix.length;i++){
+        for(int j=i+1;j<matrix.length;j++){
+            int temp=matrix[i][j];
+            matrix[i][j]=matrix[j][i];
+            matrix[j][i]=temp;
+        }
+       }
+       for(int i=0;i<matrix.length;i++){
+        int left=0;
+        int right=matrix.length-1;
+        while(left<right){
+            int temp=matrix[i][left];
+            matrix[i][left]=matrix[i][right];
+            matrix[i][right]=temp;
+            left++;
+            right--;
+        }
+       }
+     for(int i=0;i<matrix.length;i++){
+        for(int j=0;j<matrix[0].length;j++){
+            System.out.print(matrix[i][j]);
+        }
+        System.out.println();
+     }
+    }
+}
+count subarray sum equals k
+===============================
+HashMap<Integer,Integer> map=new HashMap<>();
+int count=0;
+for(int i=0;i<arr.length;i++){
+int sum+=arr[i];
+if(sum==k){
+count++;
+}
+else if(map.containsKey(sum-k)){
+count+=map.get(sum-k);
+}
+map.put(sum,map.getOrDefault(sum,0))+1;
+}
+majority element occurs more than n/3 times
+===============================================
+int ele1=0; int cnt1=0;
+int el2=0; int cnt2=0;
+for(int i=0;i<arr.length;i++){
+if(cnt1==0){
+cnt1=1;
+ele1=nums[i];
+}
+else if(cnt2==0){
+cnt2=1;
+ele2=nums[i];
+}
+else if(ele1==nums[i]){
+      cnt++;
+}
+else if(ele2==nums[i]){
+cnt2++;;
+}
+else{
+cnt1--;
+cnt2--;
+}
+}
+int mini=Integer.MIN_VALUE;
+for(int i=0;i<arr.length;i++){
+if(ele1==nums[i])count1++;
+else if(ele2==nums[i])count++;
+}
+int mini=n/3;
+if(count1>cnt){
+s.o.p(ele1);
+}
+if(count2>cnt){
+s.o.p(ele2);
+}
+
+
+
+
+
+
+
 
 
 
