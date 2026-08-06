@@ -5,6 +5,20 @@ Prefix Sum + Nested Loop	                      All arrays	        O(N²)	O(N)
 Sliding Window (Two Pointers)	            Only positive numbers	      O(N)	O(1)
 Prefix Sum + HashMap	                 Positive, Negative, Zero	         O(N)	O(N)
 
+Interview Tip
+
+If the problem says:
+
+Length of longest subarray with sum K
+
+→ Prefix Sum + HashMap ✅
+
+If it says:
+
+Maximum/Largest subarray sum
+
+→ Kadane's Algorithm ✅
+
 1. Brute Force
 
 Generate every subarray and calculate its sum.
