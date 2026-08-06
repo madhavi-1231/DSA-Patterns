@@ -436,16 +436,49 @@ right--;
 }
 return ans;
 
+count the number of subarrays  with given xor k
+=================================================
+int prefixXor=0;
+HashMap<Integer,Integer> map=new HashMap<>();
+for(int i=0;i<arr.length;i++){
+int prefixXor=prefixXor^arr[i];
+if(map.contains(prefixXor^k)){
+  count+=freq.get(prefixXor^k);
+}
+map.put(prefixXor,map.getOrDefault(prefixXor,0)+1);
+}
+}
+merge intervals
+==========================
+for(int i=0;i<n;i++){
+int start=interval[i][0];
+int end=interval[i][1];
+int j=i+1;
+while(j<n && interval[j][0]<=end){
+end=Math.max(end,interval[i][1]);
+j++)}
+ans.add(Arrays.asList(start,end));
+i=j;
+}
+return ans;
+}
+}
+merge two sorted arrays without having an extra space
+==============================================================
+optimal
+==========
+Input : nums1 = [-5, -2, 4, 5, 0, 0, 0], nums2 = [-3, 1, 8]
+Output : [-5, -3, -2, 1, 4, 5, 8]
 
-
-
-
-
-
-
-
-
-
-
-
+int i=nums1.length;
+int j=nums2.length;
+int k=nums1.length+nums2.length-1;
+while(i>=0 && j>=0){
+if(nums1[i]>nums2[j]){
+nums1[k--]=nums1[i];
+}
+else{
+nums1[k--]=nums2[i];
+}
+}
 
