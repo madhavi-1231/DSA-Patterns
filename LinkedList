@@ -1,0 +1,227 @@
+These are the 5 most important Linked List patterns that repeatedly appear in interviews.
+
+1. Reverse Linked List
+Pattern
+Node reverse(Node head){
+    Node prev = null;
+    Node curr = head;
+
+
+    while(curr != null){
+        Node front = curr.next;
+        curr.next = prev;
+        prev = curr;
+        curr = front;
+    }
+    return prev;
+}
+Used In
+Reverse Linked List
+Palindrome Linked List
+Add 1 to Number
+Reverse K Group
+2. Fast & Slow Pointer (Middle Node)
+Pattern
+Node middle(Node head){
+    Node slow = head;
+    Node fast = head;
+
+
+    while(fast != null && fast.next != null){
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+    return slow;
+}
+Used In
+Middle of Linked List
+Palindrome Linked List
+Detect Cycle Variants
+3. Cycle Detection (Floyd's Algorithm)
+Pattern
+boolean hasCycle(Node head){
+    Node slow = head;
+    Node fast = head;
+
+
+    while(fast != null && fast.next != null){
+        slow = slow.next;
+        fast = fast.next.next;
+
+
+        if(slow == fast){
+            return true;
+        }
+    }
+    return false;
+}
+Used In
+Detect Loop
+Find Loop Length
+Find Starting Node of Loop
+4. Merge Two Sorted Lists
+Pattern
+Node merge(Node l1, Node l2){
+
+
+    Node dummy = new Node(-1);
+    Node temp = dummy;
+
+
+    while(l1 != null && l2 != null){
+
+
+        if(l1.data <= l2.data){
+            temp.next = l1;
+            l1 = l1.next;
+        }
+        else{
+            temp.next = l2;
+            l2 = l2.next;
+        }
+
+
+        temp = temp.next;
+    }
+
+
+    if(l1 != null) temp.next = l1;
+    if(l2 != null) temp.next = l2;
+
+
+    return dummy.next;
+}
+Used In
+Merge Sorted Lists
+Merge Sort on Linked List
+Merge K Lists
+5. Remove Nth Node From End
+Pattern
+Node removeNth(Node head, int n){
+
+
+    Node dummy = new Node(0);
+    dummy.next = head;
+
+
+    Node fast = dummy;
+    Node slow = dummy;
+
+
+    for(int i = 0; i <= n; i++){
+        fast = fast.next;
+    }
+
+
+    while(fast != null){
+        fast = fast.next;
+        slow = slow.next;
+    }
+
+
+    slow.next = slow.next.next;
+
+
+    return dummy.next;
+}
+Used In
+Remove Nth Node
+K Distance Problems
+Two Pointer Problems
+6. Palindrome Linked List
+Pattern
+boolean isPalindrome(Node head){
+
+
+    Node slow = head;
+    Node fast = head;
+
+
+    while(fast != null && fast.next != null){
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+
+
+    Node second = reverse(slow);
+
+
+    Node first = head;
+
+
+    while(second != null){
+        if(first.data != second.data){
+            return false;
+        }
+
+
+        first = first.next;
+        second = second.next;
+    }
+
+
+    return true;
+}
+Used In
+Palindrome Linked List
+Half Reversal Problems
+7. Add Two Numbers
+Pattern
+Node add(Node l1, Node l2){
+
+
+    Node dummy = new Node(-1);
+    Node temp = dummy;
+
+
+    int carry = 0;
+
+
+    while(l1 != null || l2 != null || carry != 0){
+
+
+        int sum = carry;
+
+
+        if(l1 != null){
+            sum += l1.data;
+            l1 = l1.next;
+        }
+
+
+        if(l2 != null){
+            sum += l2.data;
+            l2 = l2.next;
+        }
+
+
+        temp.next = new Node(sum % 10);
+        carry = sum / 10;
+
+
+        temp = temp.next;
+    }
+
+
+    return dummy.next;
+}
+
+Segregation
+==============
+segregate using dummy linked list
+examples like evenlist,odd list
+merge linkedlists
+===================
+Used In
+Add Two Numbers
+Add One to Number
+8. Rotate Linked List
+Pattern
+1. Find Length
+2. Connect Tail to Head (make circle)
+3. Move to (n-k)th node
+4. Break the circle
+Used In
+Rotate Right
+Rotate Left
+Circular Linked List
