@@ -1,3 +1,397 @@
+Arrays Basic
+==========================================================================================================================
+1. Largest Element in an Array
+Example: arr = {3, 2, 1, 5, 2} → 5
+Brute force: Sort the array and return the last element.
+Arrays.sort(arr);
+return arr[arr.length - 1];
+
+
+Time: \(O(n\log n)\) · Space: depends on sorting implementation.
+Better: Not needed separately; a linear scan is already optimal.
+Optimal: Traverse once and track the maximum.
+int max = arr[0];
+
+for (int i = 1; i < arr.length; i++) {
+    if (arr[i] > max) {
+        max = arr[i];
+    }
+}
+return max;
+
+
+Time: \(O(n)\) · Extra space: \(O(1)\).
+2. Second Largest Element Without Sorting
+Example: {10, 5, 20, 8} → 10
+Brute force: Sort, then scan backward to find an element smaller than the maximum.
+Arrays.sort(arr);
+int n = arr.length;
+int largest = arr[n - 1];
+
+for (int i = n - 2; i >= 0; i--) {
+    if (arr[i] < largest) return arr[i];
+}
+return -1;
+
+
+Time: \(O(n\log n)\).
+Better: Find the largest first, then scan again for the largest value smaller than it.
+Time: \(O(n)\) · Extra space: \(O(1)\).
+Optimal: Maintain the largest and second-largest distinct values in one traversal.
+int largest = Integer.MIN_VALUE;
+int second = Integer.MIN_VALUE;
+
+for (int x : arr) {
+    if (x > largest) {
+        second = largest;
+        largest = x;
+    } else if (x < largest && x > second) {
+        second = x;
+    }
+}
+
+return second == Integer.MIN_VALUE ? -1 : second;
+
+
+Time: \(O(n)\) · Extra space: \(O(1)\).
+Note: For a fully general implementation, use a separate boolean flag to distinguish a missing second-largest element from a legitimate Integer.MIN_VALUE value.
+3. Check Whether an Array Is Sorted
+Brute force: Compare every pair \(i<j\); if arr[i] > arr[j], it is not sorted.
+Time: \(O(n^2)\).
+Better: Compare adjacent elements.
+Optimal: The adjacent comparison is already optimal.
+boolean isSorted(int[] arr) {
+    for (int i = 1; i < arr.length; i++) {
+        if (arr[i] < arr[i - 1]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+Time: \(O(n)\) · Extra space: \(O(1)\).
+4. Remove Duplicates from a Sorted Array
+Example: {1, 1, 2, 2, 3} → unique prefix {1, 2, 3}.
+Brute force: Insert elements into a HashSet.
+Set<Integer> set = new LinkedHashSet<>();
+for (int x : arr) set.add(x);
+
+
+Time: \(O(n)\) expected · Space: \(O(n)\).
+Better: Use a temporary array to store distinct elements.
+Time: \(O(n)\) · Space: \(O(n)\).
+Optimal: Two pointers, modifying the original array.
+int removeDuplicates(int[] arr) {
+    if (arr.length == 0) return 0;
+
+    int j = 0;
+
+    for (int i = 1; i < arr.length; i++) {
+        if (arr[i] != arr[j]) {
+            arr[++j] = arr[i];
+        }
+    }
+    return j + 1;
+}
+
+
+Time: \(O(n)\) · Extra space: \(O(1)\).
+The first j + 1 elements contain the unique values.
+5. Left Rotate an Array by One Place
+Example: {1, 2, 3, 4} → {2, 3, 4, 1}.
+Brute force: Create a new array and copy elements from index 1 onward, then append the first element.
+Time: \(O(n)\) · Space: \(O(n)\).
+Better / Optimal: Save the first element, shift everything left, and put the saved element at the end.
+void rotateLeft(int[] arr) {
+    if (arr.length == 0) return;
+
+    int first = arr[0];
+
+    for (int i = 1; i < arr.length; i++) {
+        arr[i - 1] = arr[i];
+    }
+
+    arr[arr.length - 1] = first;
+}
+
+
+Time: \(O(n)\) · Extra space: \(O(1)\).
+6. Left Rotate an Array by D Places
+Example: {1, 2, 3, 4, 5}, d = 2 → {3, 4, 5, 1, 2}.
+Brute force: Rotate left by one place, repeated d times.
+Time: \(O(nd)\) · Space: \(O(1)\).
+Better: Store the first d elements in a temporary array and shift the remaining elements.
+Time: \(O(n)\) · Space: \(O(d)\).
+Optimal: Use the reversal algorithm.
+void reverse(int[] arr, int left, int right) {
+    while (left < right) {
+        int temp = arr[left];
+        arr[left] = arr[right];
+        arr[right] = temp;
+        left++;
+        right--;
+    }
+}
+
+void rotateLeft(int[] arr, int d) {
+    int n = arr.length;
+    if (n == 0) return;
+
+    d %= n;
+
+    reverse(arr, 0, d - 1);
+    reverse(arr, d, n - 1);
+    reverse(arr, 0, n - 1);
+}
+
+
+Time: \(O(n)\) · Extra space: \(O(1)\).
+7. Move Zeros to the End
+Example: {1, 0, 2, 0, 3} → {1, 2, 3, 0, 0}.
+Brute force: Store nonzero elements in a temporary array, then fill remaining positions with zeros.
+Time: \(O(n)\) · Space: \(O(n)\).
+Better / Optimal: Use a pointer to track the next position for a nonzero element.
+void moveZeros(int[] arr) {
+    int j = 0;
+
+    for (int i = 0; i < arr.length; i++) {
+        if (arr[i] != 0) {
+            int temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+            j++;
+        }
+    }
+}
+
+
+Time: \(O(n)\) · Extra space: \(O(1)\).
+8. Linear Search
+Find the index of a target in an unsorted array.
+Brute force / Better / Optimal: All use the same linear scan; no asymptotically faster general method exists for an unsorted array.
+int search(int[] arr, int target) {
+    for (int i = 0; i < arr.length; i++) {
+        if (arr[i] == target) return i;
+    }
+    return -1;
+}
+
+
+Time: \(O(n)\) worst case · Extra space: \(O(1)\).
+9. Find the Union of Two Sorted Arrays
+The union contains each distinct value from either array.
+Brute force: Combine the arrays, sort, and remove duplicates.
+Time: \(O((n+m)\log(n+m))\).
+Better: Use a set to combine unique elements.
+Time: \(O(n+m)\) expected · Space: \(O(n+m)\).
+Optimal: Use two pointers because both arrays are sorted.
+List<Integer> union(int[] a, int[] b) {
+    List<Integer> ans = new ArrayList<>();
+    int i = 0, j = 0;
+
+    while (i < a.length || j < b.length) {
+        int x;
+
+        if (j == b.length ||
+            (i < a.length && a[i] < b[j])) {
+            x = a[i++];
+        } else if (i == a.length || b[j] < a[i]) {
+            x = b[j++];
+        } else {
+            x = a[i];
+            i++;
+            j++;
+        }
+
+        if (ans.isEmpty() || ans.get(ans.size() - 1) != x) {
+            ans.add(x);
+        }
+    }
+    return ans;
+}
+
+
+Time: \(O(n+m)\) · Output space: \(O(n+m)\).
+10. Find the Missing Number
+For an array containing distinct values from 0 to n, with one value missing.
+Brute force: For every number from 0 to n, search the array.
+Time: \(O(n^2)\) · Extra space: \(O(1)\).
+Better: Use a frequency array to mark present numbers.
+Time: \(O(n)\) · Space: \(O(n)\).
+Optimal: Use the sum formula.
+int missingNumber(int[] arr, int n) {
+    long expected = (long) n * (n + 1) / 2;
+    long actual = 0;
+
+    for (int x : arr) actual += x;
+
+    return (int) (expected - actual);
+}
+
+
+Time: \(O(n)\) · Extra space: \(O(1)\).
+Another optimal option is XOR, which avoids sum overflow.
+11. Maximum Consecutive Ones
+Example: {1, 1, 0, 1, 1, 1} → 3.
+Brute force: Examine every starting position and count consecutive ones.
+Time: \(O(n^2)\).
+Better / Optimal: Maintain the current streak and maximum streak.
+int findMaxConsecutiveOnes(int[] arr) {
+    int count = 0, max = 0;
+
+    for (int x : arr) {
+        if (x == 1) {
+            count++;
+            max = Math.max(max, count);
+        } else {
+            count = 0;
+        }
+    }
+    return max;
+}
+
+
+Time: \(O(n)\) · Extra space: \(O(1)\).
+12. Find the Number That Appears Once; Others Appear Twice
+Example: {4, 1, 2, 1, 2} → 4.
+Brute force: Count the occurrences of every element.
+Time: \(O(n^2)\).
+Better: Use a HashMap to count occurrences.
+Time: \(O(n)\) expected · Space: \(O(n)\).
+Optimal: XOR all the elements. Equal pairs cancel out.
+int singleNumber(int[] arr) {
+    int xor = 0;
+
+    for (int x : arr) {
+        xor ^= x;
+    }
+    return xor;
+}
+
+
+Time: \(O(n)\) · Extra space: \(O(1)\).
+13. Longest Subarray With Sum K — Positive Numbers
+=================================================
+sliding window is used when K value is given
+
+1. Brute Force Approach
+=======================
+Idea: Generate every possible subarray and calculate its sum.
+Time: O(n²) · Extra space: O(1)
+
+class Solution {
+    public int longestSubarray(int[] arr, int k) {
+        int n = arr.length;
+        int maxLen = 0;
+
+        for (int i = 0; i < n; i++) {
+            int sum = 0;
+
+            for (int j = i; j < n; j++) {
+                sum += arr[j];
+
+                if (sum == k) {
+                    maxLen = Math.max(maxLen, j - i + 1);
+                }
+            }
+        }
+
+        return maxLen;
+    }
+}
+
+Using HashMap
+================================
+import java.util.*;
+
+class Solution {
+    public int longestSubarray(int[] arr, int k) {
+        Map<Long, Integer> map = new HashMap<>();
+
+        long sum = 0;
+        int maxLen = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i];
+
+            if (sum == k) {
+                maxLen = i + 1;
+            }
+
+            long remaining = sum - k;
+
+            if (map.containsKey(remaining)) {
+                maxLen = Math.max(
+                    maxLen, i - map.get(remaining)
+                );
+            }
+
+            map.putIfAbsent(sum, i);
+        }
+
+        return maxLen;
+    }
+}
+
+optimal   slidingwindow
+================================
+
+class Solution {
+    public int longestSubarray(int[] arr, int k) {
+        int left = 0;
+        int maxLen = 0;
+        long sum = 0;
+
+        for (int right = 0; right < arr.length; right++) {
+            sum += arr[right];
+
+            while (left <= right && sum > k) {
+                sum -= arr[left];
+                left++;
+            }
+
+            if (sum == k) {
+                maxLen = Math.max(
+                    maxLen, right - left + 1
+                );
+            }
+        }
+
+        return maxLen;
+    }
+}
+2. Optimal approach for positive and negative numbers — Prefix Sum + HashMap
+================================================================================
+import java.util.*;
+
+class Solution {
+    public int longestSubarray(int[] arr, int k) {
+        Map<Long, Integer> firstIndex = new HashMap<>();
+
+        long sum = 0;
+        int maxLen = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            sum += arr[i];
+
+            if (sum == k) {
+                maxLen = i + 1;
+            }
+
+            if (firstIndex.containsKey(sum - k)) {
+                maxLen = Math.max(
+                    maxLen,
+                    i - firstIndex.get(sum - k)
+                );
+            }
+
+            firstIndex.putIfAbsent(sum, i);
+        }
+
+        return maxLen;
+    }
+}
 
 Approach	Works For	Time	Space
 Brute Force (Generate all subarrays)          	All arrays	       O(N²)	O(1)
@@ -10,12 +404,14 @@ Interview Tip
 If the problem says:
 
 Length of longest subarray with sum K
+========================================
 
 → Prefix Sum + HashMap ✅
 
 If it says:
 
 Maximum/Largest subarray sum
+===========================
 
 → Kadane's Algorithm ✅
 
@@ -314,6 +710,60 @@ count+=map.get(sum-k);
 }
 map.put(sum,map.getOrDefault(sum,0))+1;
 }
+
+
+find subarray sum with sum equals to k positive and negative
+============================================================
+brute force
+==================
+class Solution {
+    public int subarraySum(int[] arr, int k) {
+        int count = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            int sum = 0;
+
+            for (int j = i; j < arr.length; j++) {
+                sum += arr[j];
+
+                if (sum == k) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+}
+. Optimal Approach — Prefix Sum + HashMap
+======================
+
+import java.util.*;
+
+class Solution {
+    public int subarraySum(int[] arr, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+
+        map.put(0, 1);
+
+        int sum = 0;
+        int count = 0;
+
+        for (int x : arr) {
+            sum += x;
+
+            int required = sum - k;
+
+            count += map.getOrDefault(required, 0);
+
+            map.put(sum, map.getOrDefault(sum, 0) + 1);
+        }
+
+        return count;
+    }
+}
+
+
 majority element occurs more than n/3 times
 ===============================================
 int ele1=0; int cnt1=0;
