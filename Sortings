@@ -1,1 +1,108 @@
+Sorting Algorithms
+=====================================
+sorting-1
+=========================
+selection sort
+==================
+selection sort is a comparison based algortihm.selection sort repeatedly selects the minimum element from the unsorted array and swaps with the first element in the unsorted array.this process contiues until array becomes sorted.
+
+code:
+============
+public class SelectionSort{
+    public static void main(String[] args){
+        int arr[]={5,3,1,10,2};
+        selectionSort(arr);
+        for(int i=0;i<arr.length;i++){
+            System.out.print(arr[i]+" ");
+        }
+    }
+    static void selectionSort(int arr[]){
+        int n=arr.length;
+        for(int i=0;i<arr.length-1;i++){
+            int miniIndex=i;
+            for(int j=i+1;j<arr.length;j++){
+                if(arr[j]<arr[miniIndex]){
+                    miniIndex=j;
+                }
+            }
+            int temp=arr[i];
+            arr[i]=arr[miniIndex];
+            arr[miniIndex]=temp;
+        } } }
+
+TC:Avg ,best,worst case time complexity O(n^2)
+SC:O(1)
+
+BubbleSort
+=====================
+comparing adjacent elements repeatedly at each iteration largest element moves to correct position in end of the array is called bubble sort
+code
+===============
+public class BubbleSort{
+    public static void main(String[] args){
+        int arr[]={5,1,3,2};
+        for(int i=0;i<arr.length;i++){
+            for(int j=0;j<arr.length-i-1;j++){
+                if(arr[j]>arr[j+1]){
+                    int temp=arr[j];
+                    arr[j]=arr[j+1];
+                    arr[j+1]=temp;
+                }
+            }
+        }
+    for(int i=0;i<arr.length;i++){
+        System.out.print(arr[i]);
+    }
+    }
+}
+TC:O(n^2)
+SC:O(1)
+
+Insertion Sort
+======================
+pick one element and put into the current of the array
+code:
+===============
+public class InsertionSort{
+    public static void main(String[] args){
+        int arr[]={20,5,3,4,1,10};
+        for(int i=0;i<arr.length;i++){
+            int j=i;
+            while(j>0 && arr[j-1]>arr[j]){
+                int temp=arr[j];
+                arr[j]=arr[j-1];
+                arr[j-1]=temp;
+                j--;
+            }
+        }
+        for(int i=0;i<arr.length;i++){
+            System.out.print(arr[i]+" ");
+        }
+    }
+}
+TC:worst case and averageO(n^2)
+best case:O(n)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
