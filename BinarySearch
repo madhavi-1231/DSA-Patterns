@@ -26,3 +26,96 @@ public class SearchEle{
         System.out.println(-1);
     }
 }
+lowerbound
+================
+public class LowerBound {
+    public static void main(String[] args){
+        int nums[]={1,2,2,3};
+        int low=0;
+        int x=9;
+        int answer=nums.length;
+        int high=nums.length-1;
+        while(low<=high){
+            int mid=(low+high)/2;
+            if(nums[mid]>=x){
+                answer=mid;
+                high=mid-1;
+            }
+            else{
+               low=mid+1;
+            }
+        }
+        System.out.println(answer);    }}
+upperbound
+===================
+int nums[]={3,5,8,15,19};
+        int low=0;
+        int x=9;
+        int answer=nums.length;
+        int high=nums.length-1;
+        while(low<=high){
+            int mid=(low+high)/2;
+            if(nums[mid]>x){
+                answer=mid;
+                high=mid-1;
+            }
+            else{
+               low=mid+1;
+            }
+        }
+        System.out.println(answer);
+    }}
+Search insert position
+=============================
+int low=0;
+int high=nums.length-1;
+while(low<=high){
+int mid=(low+high)/2;
+if(nums[mid]<x){
+low=mid+1;
+}
+else{
+high=mid-1;
+}
+}
+
+
+floor And ceil
+===========================
+public class FloorAndCeil{
+    public static void main(String[] args){
+        int nums[]={2, 4, 6, 8, 10, 12, 14};
+        int x=1;
+       int low=0;
+       int floor=-1;
+       int ceil=-1;
+       int high=nums.length;
+       while(low<=high){
+        int mid=(low+high)/2;
+        if(nums[mid]<=x){
+            floor=nums[mid];
+            low=mid+1;
+        }
+        else{
+             high=mid-1;
+        }
+       }
+        low=0;
+        high=nums.length-1;
+        while(low<=high){
+            int mid=(low+high)/2;
+            if(nums[mid]<x){
+                low=mid+1;
+            }
+            else{
+                ceil=nums[mid];
+                high=mid-1;
+            }
+        }
+       System.out.println(floor+" "+ceil);
+       
+    }
+    
+    }
+
+
