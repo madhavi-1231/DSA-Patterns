@@ -995,11 +995,43 @@ maxProd=Math.max(maxProd,Math.max(pref,suff));
 return maxProd;
 }
 }
-
-
-
-
-
+threesum
+====================================
+brute force
+=================
+        HashSet<ArrayList<Integer>> set=new HashSet<>();
+        for(int i=0;i<arr.length;i++){
+            for(int j=i+1;j<arr.length;j++){
+                for(int k=j+1;k<arr.length;k++){
+                    int sum=arr[i]+arr[j]+arr[k];
+                    if(sum==0){
+                        ArrayList<Integer> temp=new ArrayList<>(Arrays.asList(arr[i],arr[j],arr[k]));
+                        Collections.sort(temp);
+                         set.add(temp);
+                    } }}}
+        System.out.println(set);
+    }}
+tc:O(n^3)
+sc:O(1)
+better
+==================
+ HashSet<ArrayList<Integer>> set=new HashSet<>();
+        for(int i=0;i<arr.length;i++){
+                HashSet<Integer> map=new HashSet<>();
+            for(int j=i+1;j<arr.length;j++){
+                     int third=-(arr[i]+arr[j]);
+                     if(map.contains(third)){
+                        ArrayList<Integer> temp=new ArrayList<>(Arrays.asList(arr[i],arr[j],third));
+                        Collections.sort(temp);
+                        set.add(temp);
+                     }
+                     map.add(arr[j]);}}
+      System.out.println(set);}}
+tc:O(n^2)
+sc:O(n)
+  
+optimal
+=========================
 
 
 
