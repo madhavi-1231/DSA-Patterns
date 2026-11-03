@@ -1033,12 +1033,172 @@ sc:O(n)
 optimal
 =========================
 
+import java.util.*;
+public class ThreeSum{
+    public static void main(String[] args){
+        int arr[]={0,0,0};
+        Arrays.sort(arr);
+        ArrayList<ArrayList<Integer>> al=new ArrayList<>();
+        for(int i=0;i<arr.length;i++){
+            if(i>0 && arr[i]==arr[i-1]){
+                continue;
+            }
+            int j=i+1;
+            int  k=arr.length-1;
+            while(j<k){
+                int sum=arr[i]+arr[j]+arr[k];
+                if(sum==0){
+                    ArrayList<Integer> temp=new ArrayList<>(Arrays.asList(arr[i],arr[j],arr[k]));
+                    al.add(temp);
+                    j++;
+                    k--;
+                    while(j<k&& arr[j]==arr[j-1]){
+                        j++;
+                    }
+                    while(j<k && arr[k]==arr[k+1]){
+                        k--;}}
+                else if(sum>0)
+                {
+                    k--;
+                }
+                else{
+                    j++; }}}
+       System.out.println(al);}}
 
+4 sum
+===================
+brute force 
 
+==============
+import java.util.*;
+public class FourSum{
+    public static void main(String[] args){
+        int nums[]={2,2,2,2};
+     ArrayList<ArrayList<Integer>> al=new ArrayList<>();
+     Set<ArrayList<Integer>> set=new HashSet<>();
+        for(int i=0;i<nums.length;i++){
+            for(int j=i+1;j<nums.length;j++){
+                for(int k=j+1;k<nums.length;k++){
+                    for(int l=k+1;l<nums.length;l++){
+                        int sum=nums[i]+nums[j]+nums[k]+nums[l];
+                        if(sum==8){
+                            ArrayList<Integer> temp=new ArrayList<>(Arrays.asList(nums[i],nums[j],nums[k],nums[l]));
+                             Collections.sort(temp);
+                               if(!set.contains(temp)){
+                                al.add(temp);                      }}}}}}
+        System.out.println(al);}}
+tc:O(n^4)
+better
+==============
+import java.util.*;
 
+class Solution {
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        int n = nums.length;
 
+        // Four different indices are required.
+        if (n < 4) {
+            return new ArrayList<>();
+        }
 
+        Set<List<Integer>> uniqueQuadruplets = new HashSet<>();
 
+        for (int first = 0; first < n - 3; first++) {
+            for (int second = first + 1; second < n - 2; second++) {
+                Set<Long> seenValues = new HashSet<>();
+
+                /*
+                 * Values seen earlier can act as
+                 * the fourth element of a quadruplet.
+                 */
+                for (int third = second + 1; third < n; third++) {
+                    long fourthValue =
+                        (long) target -
+                        nums[first] -
+                        nums[second] -
+                        nums[third];
+
+                    /*
+                     * A previously seen required value
+                     * completes the target sum.
+                     */
+                    if (seenValues.contains(fourthValue)) {
+                        List<Integer> quadruplet = new ArrayList<>(
+                            Arrays.asList(
+                                nums[first],
+                                nums[second],
+                                nums[third],
+                                (int) fourthValue
+                            )
+                        );
+
+                        Collections.sort(quadruplet);
+                        uniqueQuadruplets.add(quadruplet);
+                    }
+
+                    /*
+                     * Insert after lookup so the current
+                     * index cannot be reused.
+                     */
+                    seenValues.add((long) nums[third]);
+                }
+            }
+        }
+
+        return new ArrayList<>(uniqueQuadruplets);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        int[] nums = {1, 0, -1, 0, -2, 2};
+        int target = 0;
+
+        Solution solution = new Solution();
+        List<List<Integer>> answer = solution.fourSum(nums, target);
+
+        for (List<Integer> quadruplet : answer) {
+            System.out.println(quadruplet);
+        }
+    }
+}
+optimal
+==========================
+import java.util.*;
+public class FourSum{
+    public static void main(String[] args){
+         int nums[]={2,2,2,2};
+         int target=8;
+         ArrayList<ArrayList<Integer>> al=new ArrayList<>();
+         Arrays.sort(nums);
+         for(int i=0;i<nums.length;i++){
+            if(i>0 && nums[i]==nums[i-1]){
+                continue;
+            }
+            for(int j=i+1;j<nums.length;j++){
+                if(j>i+1 && nums[j]==nums[j-1]){
+                    continue;
+                }
+                int k=j+1;
+                int l=nums.length-1;
+                while(k<l){
+                int sum=nums[i]+nums[j]+nums[k]+nums[l];
+                if(sum==target){
+                  ArrayList<Integer> temp=new ArrayList<>(Arrays.asList(nums[i],nums[j],nums[k],nums[l]));
+                    al.add(temp);                  
+                  k++;
+                  l--;
+                  while(k<l && nums[k]==nums[k-1]){
+                    k++;
+                  }
+                  while(k<l && nums[l]==nums[l+1]){
+                    l--;}}
+                else if(sum<target){
+                    k++;
+            }
+            else{
+                l--;}}}}
+    System.out.println(al);}}
 
 
 
