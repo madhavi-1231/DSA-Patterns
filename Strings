@@ -1,0 +1,231 @@
+->patterns
+===================
+using open ,close count variables
+str.split("")---handles single place only
+str.split("\\s+")---handles multiple places
+
+Remove outer most parentheses
+============================
+class Solution {
+    public String removeOuterParentheses(String s) {
+        int counter=0;
+        String str="";
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)=='('){
+                 counter++;
+                if(s.charAt(i)=='(' && counter>1){
+                str=str+s.charAt(i);
+            }
+            }
+            else{
+                      counter--;
+                if(s.charAt(i)==')' && counter>0){
+                str=str+s.charAt(i);
+            }
+            }
+        }
+        return str;
+    }
+}
+Reverse Words
+======================
+public class ReverseWords{
+    public static void main(String[] args){
+       String s="a good   example";
+       String str[]=s.split("\\s+ ");
+       int left=0;
+       int right=str.length-1;
+       while(left<right)
+       {
+    
+        String temp=str[left];
+        str[left]=str[right];
+        str[right]=temp;
+        left++;
+        right--;
+       }
+       for(int i=0;i<str.length;i++){
+        System.out.print(str[i]+" ");
+       }}}
+LargestOddNumber
+=========================
+public class LargestOddNumberInString {
+public static void main(String[] args){
+    String num="35427";
+     for(int i=num.length();i>0;i--){
+        int n=Integer.parseInt(num.substring(0,i));
+           if(n%2!=0){
+              System.out.println(num.substring(0,i));
+              break;
+           }}
+     System.out.println("");}}
+LongestCommonPrefix
+===============================
+
+import java.util.*;
+
+public class LargestCommonPrefix {
+    public static void main(String[] args) {
+
+        String strs[] = {"dog", "racecar", "car"};
+        Arrays.sort(strs);
+        String str1 = strs[0];
+        String str2 = strs[strs.length - 1];
+        int i = 0;
+        while (i < Math.min(str1.length(), str2.length())) {
+            if (str1.charAt(i) != str2.charAt(i)) {
+                break;
+            }
+            i++;}
+        System.out.println(str1.substring(0, i));}}
+Valid Anagram
+=================
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        if(s.length()!=t.length()){
+             return false;
+        }
+         char ch1[]=s.toCharArray();
+        char ch2[]=t.toCharArray();
+        Arrays.sort(ch1);
+        Arrays.sort(ch2);
+        for(int i=0;i<ch1.length;i++){
+            if(ch1[i]!=ch2[i]){
+                return false;
+            }}
+        return true; }}
+
+Isomorphic
+=======================
+public class Isomorphic {
+    public static void main(String[] args){
+        String s="paper";
+        String t="title";
+        
+        int m1[]=new int[256];
+        int m2[]=new int[256];
+        for(int i=0;i<s.length();i++){
+            if(m1[s.charAt(i)]!=m2[t.charAt(i)]){
+                System.out.println("false");
+                break;
+
+            }
+            m1[s.charAt(i)]=i+1;
+            m2[t.charAt(i)]=i+1;
+        }
+    System.out.println(true);
+    }
+}
+RotateString
+=================================
+public class RotateString {
+    public static void main(String[] args){
+        String s="abcde";
+        String goal="cdeab";
+        String newStr="";
+        int n=s.length();
+        for(int i=0;i<s.length();i++){
+           newStr=s.substring(n-i-1)+s.substring(0,n-i-1);
+           if(goal.equals(newStr)){
+            System.out.println("true");
+            return;
+           }
+        }
+        System.out.println("false"); }}
+
+Medium problmes
+==============================================================================================
+Sort Characters Based on Freq
+=================================
+import java.util.*;
+public class SortCharactersByFreq {
+    public static void main(String[] args){
+        String s="Aabb";
+        PriorityQueue<Pair> pq=new PriorityQueue<>((a,b)->b.n-a.n);
+        HashMap<Character,Integer> map=new HashMap<>();
+        for(char c:s.toCharArray()){
+             map.put(c,map.getOrDefault(c, 0)+1);
+        }
+      ArrayList<Character> list=new ArrayList<>(map.keySet());
+      Collections.sort(list,(a,b)->map.get(b)-map.get(a));
+      StringBuilder sb=new StringBuilder();
+     for(char ch:list){
+        for(int i=0;i<map.get(ch);i++)
+        {
+            sb.append(ch);
+        }
+     }
+     System.out.println(sb.toString());     
+    }
+}
+class Pair{
+    char c ;
+    int n;
+    Pair(char c,int n){
+        this.c=c;
+        this.n=n;}}
+MaximumNestingDepthOfParenthese
+===============================
+public class MaximumNestingDepthOfParen {
+    public static void main(String[] args){
+        String s="()(((())))((()()))";
+        int count=0;int maxi=0;
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)=='('){
+             count++;}
+            else if(s.charAt(i)==')'){
+                count--;}
+            maxi=Math.max(maxi,count);}
+        System.out.println(maxi);}}
+
+RomanToInteger
+=============================
+import java.util.*;
+public class RomanToInteger {
+    public static void main(String[] args){
+            String s="LVIII";
+            HashMap<Character,Integer> map=new HashMap<>();
+            map.put('I',1);
+            map.put('V',5);
+            map.put('X',10);
+            map.put('L',50);
+            map.put('C',100);
+            map.put('D',500);
+            map.put('M',1000);
+            int sum=0;
+            for(int i=0;i<s.length()-1;i++){
+                   if(map.get(s.charAt(i+1))>map.get(s.charAt(i))){
+                    sum-=map.get(s.charAt(i));
+                   }
+                   else{
+                    sum+=map.get(s.charAt(i));}}
+            System.out.println(sum+map.get(s.charAt(s.length()-1)));}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
