@@ -154,9 +154,48 @@ space complexity:
 ==========================
 O(n)
 
-
-
-
+QuickSort Algorithm
+============================
+1.initially find pivot element
+2.made swaps if element isgreaterthan pivot at left side and also find smaller element on right side .
+3.if left less than right aithe swap left and right elements 
+4 .cross aithe low with right element
+5.this process continues until we find one element
+code
+===============
+solve(arr,0,n-1);
+}
+solve( arr[],int low,int high){
+if(low>=high){
+return;
+}
+int pivot=partition(arr,low,high);
+solve(arr,low,pivot-1);
+solve(arr,pivot+1,high);
+}
+partition(int arr[],int low,int high)
+{
+int pivot=arr[low];
+int i=low+1;
+int j=high;
+while(i<=j){
+while(i<high && arr[i]<=pivot){
+i++;
+}
+while(i>low && arr[j]>pivot){
+j--;
+}
+if(i<j){
+int temp=arr[i];
+arr[i]=arr[j];
+arr[j]=temp;
+}
+}
+int temp=arr[low];
+arr[low]=arr[j];
+arr[j]=temp;
+return j;
+}
 
 
 
