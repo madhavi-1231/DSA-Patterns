@@ -205,6 +205,357 @@ Node add(Node l1, Node l2){
 
     return dummy.next;
 }
+OddEvenLinkedList
+====================================================================
+public class OddEvenLinkedList{
+    public static void main(String[] args){
+        Node head=new Node(2);
+        head.next=new Node(1);
+        head.next.next=new Node(3);
+        head.next.next.next=new Node(5);
+        head.next.next.next.next=new Node(6);
+        head.next.next.next.next.next=new Node(4);
+        head.next.next.next.next.next.next=new Node(7);
+        OddEven(head); }
+    static void OddEven(Node head){
+        int cnt=1;
+        Node dummy1=new Node(-1);
+        Node odd=dummy1;
+        Node dummy2=new Node(-1);
+        Node even=dummy2;
+        Node temp=head;
+        while(temp!=null){
+             if(cnt%2==0){
+                even.next=new Node(temp.data);
+                even=even.next;}
+             else{
+                odd.next=new Node(temp.data);
+                odd=odd.next;}
+             temp=temp.next;
+             cnt++;}
+        odd.next=dummy2.next;
+        Node curr=dummy1.next;
+        while(curr!=null){
+            System.out.println(curr.data);
+            curr=curr.next;
+        }}}
+RemoveNthNode From End
+=========================================
+->count the length
+->find  length-k previous index
+->then do previous.next=previous.next.next;
+code
+===========
+public class RemoveNthNodeFromEndList {
+    public static void main(String[] args){
+        Node head=new Node(1);
+        head.next=new Node(2);
+        head.next.next=new Node(3);
+        head.next.next.next=new Node(4);
+        head.next.next.next.next=new Node(5);
+        removeNthNode(head);
+    }
+    static void removeNthNode(Node head){
+        int length=0;
+        Node temp=head;
+        while(temp!=null){
+            length++;
+            temp=temp.next;
+        }
+        int k=1;
+        int steps=length-k;
+        Node previous=head;;
+        for(int index=1;index<steps;index++){
+            previous=previous.next;
+        }
+        previous.next=previous.next.next;
+        Node curr=head;
+        while(curr!=null){
+            System.out.println(curr.data);
+            curr=curr.next;
+        }
+    }
+}
+delete Middle
+============================
+public class RemoveNthNodeFromEndList {
+    public static void main(String[] args){
+        Node head=new Node(2);
+        head.next=new Node(1);
+        head.next.next=new Node(3);
+        head.next.next.next=new Node(4);
+        head.next.next.next.next=new Node(5);
+        deleteMiddle(head);
+    }
+    static void deleteMiddle(Node head){
+        int length=0;
+        Node temp=head;
+        while(temp!=null){
+            length++;
+            temp=temp.next;
+        }
+        int steps=length/2;
+        Node previous=head;;
+        for(int index=1;index<steps;index++){
+            previous=previous.next;
+        }
+        previous.next=previous.next.next;
+        Node curr=head;
+        while(curr!=null){
+            System.out.println(curr.data);
+            curr=curr.next;
+        }
+    }
+}
+optimal
+============================
+public class DeleteMiddleNodeOfLL {
+    public static void main(String[] args){
+        Node head=new Node(1);
+        head.next=new Node(2);
+        head.next.next=new Node(3);
+        head.next.next.next=new Node(4);
+        head.next.next.next.next=new Node(1);
+        head.next.next.next.next.next=new Node(2);
+        head.next.next.next.next.next.next=new Node(6);
+        deleteMiddle(head);
+    }
+    static void deleteMiddle(Node head){
+        Node previous=null;
+        Node slow=head;
+        Node fast=head;
+        while(fast!=null && fast.next!=null){
+            previous=slow;
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+        previous.next=slow.next;
+        Node curr=head;
+        while(curr!=null){
+            System.out.println(curr.data);
+            curr=curr.next;
+        }
+    }
+}
+sortLL
+===============================
+brute force
+=================================
+take all the node into the arrraylist then sort that array list.
+->when we again traverse oveer the linked list then change node value based upon the sorted arraylistt
+then it takes the time complexity of O(n) and space complexity of O(n)
+optimal
+================
+public class SortLinkedList0s1s2s{
+ public static void main(String[] args){
+    Node head=new Node(1);
+    head.next=new Node(0);
+    head.next.next=new Node(1);
+    head.next.next.next=new Node(2);
+    head.next.next.next.next=new Node(1);
+    sortLL(head);
+ }   
+ static void sortLL(Node head){
+    Node temp=head;
+    Node dummy1=new Node(-1);
+    Node dummy2=new Node(-1);
+    Node dummy3=new Node(-1);
+    Node zero=dummy1;
+    Node one=dummy2;
+    Node two=dummy3;
+    while(temp!=null){
+        if(temp.data==0){
+            zero.next=temp;
+            zero=zero.next;
+        }
+        if(temp.data==1){
+            one.next=temp;
+            one=one.next;
+        }
+        if(temp.data==2){
+            two.next=temp;
+            two=two.next;
+        }
+        temp=temp.next;
+    }
+    zero.next=dummy2.next;
+    one.next=dummy3.next;
+    Node curr=dummy1.next;
+        two.next=null;
+
+    while(curr!=null){
+        System.out.print(curr.data);
+        curr=curr.next;}}}
+
+find intersection pointofLL
+======================================
+import java.util.*;
+public class IntersectionOfTwoLL {
+    public static void main(String[] args){
+       Node headA=new Node(2);
+       headA.next=new Node(6);
+       headA.next.next=new Node(4);
+
+       Node headB=new Node(1);
+       headB.next=new Node(5);
+        intersection(headA,headB);
+    }
+    static void intersection(Node head1,Node head2){
+        HashSet<Node> set=new HashSet<>();
+        Node temp=head1;
+        Node temp2=head2;
+        while(temp!=null){
+            set.add(temp);
+            temp=temp.next;
+        }
+        while(temp2!=null){
+            if(set.contains(temp2)){
+                System.out.println(temp2.data);
+                return;
+            }
+            temp2=temp2.next;}}}
+IntersectionOfTwoLL
+======================================================
+public class IntersectionOfTwoLL {
+    public static void main(String[] args){
+   
+        Node headA = new Node(1);
+        headA.next = new Node(9);
+        headA.next.next = new Node(1);
+
+        Node common = new Node(2);
+        common.next = new Node(4);
+
+        headA.next.next.next = common;
+
+        Node headB = new Node(3);
+        headB.next = common;
+        intersection(headA,headB);
+    }
+    static void intersection(Node head1,Node head2){
+        int len1=findLen(head1);
+        int len2=findLen(head2);
+        Node temp1=head1;
+        Node temp2=head2;
+        if(len1>len2){
+            int diff=len1-len2;
+            while(diff>0){
+                temp1=temp1.next;
+                diff--;
+            }
+        }
+        else{
+            int diff=len2-len1;
+            while(diff>0){
+                temp2=temp2.next;
+                diff--;
+            }
+        }
+        while(temp1!=null && temp2!=null){
+            if(temp1==temp2){
+                System.out.println(temp1.data);
+                return;
+            }
+            temp1=temp1.next;
+            temp2=temp2.next;
+        }
+    }
+    static int findLen(Node head){
+        Node temp=head;
+        int len=0;
+        while(temp!=null){
+            len++;
+            temp=temp.next;
+        }
+        return len;
+    }
+}
+Add1ToaNumber
+====================================
+brute force
+================
+public class AddOneToANumber{
+    public static void main(String[] args){
+        Node head=new Node(9);
+        head.next=new Node(9);
+        head.next.next=new Node(9);
+        addOne(head);
+    }
+    static void addOne(Node head){
+           Node temp=reverse(head);
+           Node revHead=temp;
+           int carry=1;
+           int sum=0;
+           Node prev=null;
+           while(temp!=null){
+            sum=temp.data+carry;
+            if(sum>=10){
+                carry=sum/10;
+                temp.data=sum%10;
+            }     
+            else{
+                temp.data=sum;
+                carry=0;
+            }   
+            prev=temp;
+            temp=temp.next;   
+    }
+    if(carry>0){
+        prev.next=new Node(carry);
+    }
+    Node curr=reverse(revHead);
+    while(curr!=null){
+        System.out.println(curr.data);
+        curr=curr.next;
+    }
+ }
+    static Node reverse(Node head){
+           Node prev=null;
+        Node temp=head;
+        while(temp!=null){
+            Node front=temp.next;
+            temp.next=prev;
+            prev=temp;
+            temp=front;
+        }
+        return prev;}}
+AddTwoNumbers
+============================================
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        int carry=0;
+        ListNode dummy=new ListNode(-1);
+        ListNode temp=dummy;
+        while(l1!=null || l2!=null){
+            int x=(l1!=null)?l1.val:0;
+            int y=(l2!=null)?l2.val:0;
+            int sum=x+y+carry;
+            temp.next=new ListNode(sum%10);
+            carry=sum/10;
+            temp=temp.next;
+            if(l1!=null){
+                l1=l1.next;
+            }
+            if(l2!=null){
+                l2=l2.next;
+            }
+        }
+        if(carry>0){
+            temp.next=new ListNode(carry);
+        }
+        return dummy.next;
+    }
+}
 
 Segregation
 ==============
