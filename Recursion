@@ -1,4 +1,10 @@
 recursion means which calls itself
+
+
+patterns
+===============
+->add and skip pattern for subsequences
+
 Atoi
 ======================================
 code
@@ -29,3 +35,311 @@ public class StringToInteger {
                     break;}
                 i++;}
              System.out.println(num*sign);}}
+
+SubsetsEx
+===========================
+import java.util.ArrayList;
+
+public class SubsetsEx {
+           static ArrayList<ArrayList<Integer>> al=new ArrayList<>();
+
+    public static void main(String[] args){
+        int nums[]={1,2,3};
+        ArrayList<Integer> sub=new ArrayList<>();
+        subsets(nums,sub,0);
+        System.out.println(al);
+    }
+    static void subsets(int arr[],ArrayList<Integer>sb,int index){
+        if(index==arr.length){
+             al.add(new ArrayList<>(sb));
+             return;
+        }
+        sb.add(arr[index]);
+        subsets(arr,sb,index+1);
+        sb.remove(sb.size()-1);
+        subsets(arr,sb,index+1);
+    }
+}
+GenerateParenthese
+==============================
+import java.util.*;
+public class GenerateParentheses {
+    public static void main(String[] args){
+        int n=3;
+        generate(n,"");
+    }
+    static void generate(int n,String s){
+            if(s.length()==2*n){
+                if(isValid(s)){
+                 System.out.println(s);
+
+                }
+                return;
+            }
+        generate(n,s+"(");
+        generate(n,s+")");
+    }
+    static boolean isValid(String s){
+       Stack<Character> st=new Stack<>();
+        for(char c:s.toCharArray()){
+            if(c=='('){
+                st.push(c);
+            }
+            else {
+                 if (st.isEmpty()) {
+                    return false;
+                }
+                st.pop();
+            }
+        }
+        if(st.isEmpty()){
+            return true;
+        }
+        return false;
+    }
+}
+GenerateBinaryStrings
+===================================================
+import java.util.*;
+public class GenerateStringUsingBitMask {
+    public static void main(String[] args){
+        int n=3;
+        int total=1<<n;
+        ArrayList<String> al=new ArrayList<>();
+        for(int mask=0;mask<total;mask++){
+            StringBuilder sb=new StringBuilder();
+            for(int i=0;i<n;i++){
+                if((mask & (1<<i) )==0){
+                  sb.append("0");
+                }
+                else{
+                    sb.append("1");
+                }
+            }
+            al.add(sb.toString());
+        }
+System.out.println(al);
+    }
+}
+recursion
+====================================
+import java.util.*;
+public class GennerateBinaryStrings {
+    public static void main(String[] args){
+        int n=3;
+        ArrayList<String> al=new ArrayList<>();
+        generate(n,"",al);
+        System.out.println(al);
+    }
+    static void generate(int n,String s,ArrayList<String> al){
+        if(s.length()==n){
+          al.add(s);
+          return;
+        }
+         generate(n,s+"0",al);
+        if(s.length()==0  || s.charAt(s.length()-1)!='1'){
+         generate(n,s+"1",al);
+         }
+    }
+}
+DistinctSubsequences
+======================================
+iterative
+[=================================
+class Solution {
+    public int distinctSubseqII(String s) {
+        HashSet<String> al=new HashSet<>();
+       return distinct(s,al); 
+    }
+    int distinct(String s,HashSet<String> set){
+    int n=s.length();
+    int total=1<<n;
+    for(int mask=0;mask<total;mask++){
+        StringBuilder sb=new StringBuilder();
+        for(int i=0;i<n;i++){
+            if((mask& (1<<i))!=0){
+               sb.append(s.charAt(i));
+            }
+        }
+    set.add(sb.toString());
+    }
+    return set.size()-1;
+    }
+}
+recursion
+======================
+same like subset
+
+
+
+countAllSubsequences with sum equals to k
+=============================================================
+public class CountAllSubsequences {
+    public static void main(String[] args){
+        int nums[]={4,2,10,5,1,3};
+        int target=5;
+        System.out.println(countAllSubseq(nums,0,target));
+    }
+    static int countAllSubseq(int nums[],int index,int target){
+        if(target==0){
+            return 1;
+        }
+        if(index==nums.length){
+            return 0;
+        }
+                    int left= countAllSubseq(nums,index+1,target);
+                    int right=0;
+                    if(nums[index]<=target){
+         right=0+countAllSubseq(nums,index+1,target-nums[index]);
+                    }
+                    return left+right;}
+}
+combinationSum
+=======================================
+import java.util.*;
+public class CombinationSum {
+    static ArrayList<ArrayList<Integer>> al=new ArrayList<>();
+ public static void main(String[] args){
+    int candidates[]={2,3,6,7};
+    int target=7;
+    ArrayList<Integer> subList=new ArrayList<Integer>();
+    combination(candidates,0,target,subList);
+    System.out.println(al);
+ }   
+ static void combination(int cand[],int index,int target,ArrayList<Integer> sub){
+    if(index==cand.length){
+        if(target==0){
+       al.add(new ArrayList<>(sub));
+        }
+        return;
+    }
+  
+    if(cand[index]<=target){
+        sub.add(cand[index]);
+        combination(cand,index,target-cand[index],sub);
+        sub.remove(sub.size()-1);   //////////this line for  if we cannot get a valid path then we remove elements from list .
+    }
+        combination(cand,index+1,target,sub);}}
+combinationSum2
+================================================        ==================================
+import java.util.*;
+public class CombinationSum2 {
+    static ArrayList<ArrayList<Integer>> al=new ArrayList<>();
+ public static void main(String[] args){
+    int cand[]={10,1,2,7,6,1,5};
+    int target=10;
+    ArrayList<Integer> sub=new ArrayList<>();
+    HashSet<ArrayList<Integer>> set=new HashSet<>();
+    combination(cand,0,target,sub,set);
+    System.out.println(al);
+ }   
+ static void combination(int cand[],int index,int target,ArrayList<Integer> sub,HashSet<ArrayList<Integer>> set){
+   
+
+              if (target == 0) {
+            ArrayList<Integer> temp = new ArrayList<>(sub);
+
+            if (!set.contains(temp)) {
+                set.add(temp);
+                al.add(temp);
+            }
+            return;
+        }
+         if(index==cand.length){
+        return;}
+    
+    if(cand[index]<=target){
+        sub.add(cand[index]);
+        combination(cand,index+1,target-cand[index],sub,set);
+        sub.remove(sub.size()-1);
+    }
+    combination(cand,index+1,target,sub,set);
+ }
+}
+
+subsetsI
+=========================================
+class Solution {
+    public List<Integer> subsetSums(int[] nums) {
+        //your code goes here
+        List<Integer> al=new ArrayList<>();
+        subsets(nums,0,0,al);
+        return al;
+    }
+    void subsets(int nums[],int index,int sum,List<Integer> al){
+        if(index==nums.length){
+            al.add(sum);
+            return;
+        }
+        subsets(nums,index+1,sum+nums[index],al);
+        subsets(nums,index+1,sum,al);
+    }
+}
+reverse stack
+====================================
+import java.util.*;
+public class ReverseStackEx {
+    public static void main(String[] args){
+        Stack<Integer> st=new Stack<>();
+        st.push(4);
+        st.push(1);
+        st.push(3);
+        st.push(2);
+        reverseStack(st);
+    }
+    static void reverseStack(Stack<Integer> st){
+        if(st.isEmpty()){
+            return;
+        }
+        int ele=st.pop();
+        reverseStack(st);
+        insert(ele,st);
+    }
+    static void insert(int ele,Stack<Integer> st){
+        if(st.isEmpty()){  4 
+           st.push(ele);
+           return;
+        }
+        int temp=st.pop();  4
+        insert(ele,st);    1
+        st.push(temp); 
+        }
+}
+
+sort stack
+=======================================
+
+import java.util.*;
+public class SortStack {
+    public static void main(String[] args){
+Stack<Integer> st=new Stack<Integer>();
+st.push(4);
+st.push(3);
+st.push(5);
+st.push(1);
+sortStack(st);
+System.out.println(st);
+    }
+    static void sortStack(Stack<Integer> st){
+        if(st.isEmpty()){
+            return;
+        }
+        int value=st.pop();
+        sortStack(st);
+        insertValues(st,value);
+    }
+    static void insertValues(Stack<Integer> st,int value){
+        if(st.isEmpty() || st.peek()<=value){
+            st.push(value);
+            return;
+        }
+        int temp=st.pop();
+        insertValues(st,value);
+        st.push(temp);
+    }
+}
+
+
+
+
+
