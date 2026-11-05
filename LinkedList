@@ -556,6 +556,126 @@ class Solution {
         return dummy.next;
     }
 }
+removeduplicates 
+=======================================
+program
+================
+public class RemoveDuplicates1{
+    public static void main(String[] args){
+Node head = new Node(1);
+
+head.next = new Node(1);
+head.next.prev = head;
+
+head.next.next = new Node(1);
+head.next.next.prev = head.next;
+
+head.next.next.next = new Node(1);
+head.next.next.next.prev = head.next.next;
+
+head.next.next.next.next = new Node(1);
+head.next.next.next.next.prev = head.next.next.next;
+
+head.next.next.next.next.next = new Node(2);
+head.next.next.next.next.next.prev = head.next.next.next.next;
+        remove(head);
+    }
+    static void remove(Node head){
+        Node prev=head;
+        Node temp=head.next;
+        while(temp!=null){
+            if(prev.data!=temp.data){
+                prev.next=temp;
+                temp.prev=prev;
+                prev=temp;
+            }
+            temp=temp.next;
+        }
+        prev.next = null;
+        Node curr=head;
+        while(curr!=null){
+            System.out.println(curr.data);
+            curr=curr.next;}}}
+
+class Node {
+    int data;
+    Node next;
+    Node prev;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+        this.prev = null;
+    }
+}
+FindPairsWithGivenSum
+================================================================
+public class FindPairsWithGivenSum {
+    public static void main(String[] args){
+      Node head = new Node(1);
+head.next = new Node(3);
+head.next.prev = head;
+
+head.next.next = new Node(5);
+head.next.next.prev = head.next;
+     findPairs(head);
+    }
+   static void findPairs(Node head){
+    Node slow=head;
+    int target=6;
+    Node fast=head;
+    while(fast.next!=null){
+        fast=fast.next;
+    }
+    while(slow!=fast && slow.prev!=fast){
+        int sum=slow.data+fast.data;
+        if(sum==target){
+            System.out.println(slow.data+" "+fast.data);
+            slow=slow.next;
+            fast=fast.prev;
+        }
+        else if(sum<target){
+            slow=slow.next;
+        }
+        else {
+              fast=fast.prev;}}}}
+class Node {
+    int data;
+    Node next;
+    Node prev;
+    Node(int data) {
+        this.data = data;}}
+static void deleteAllOccur(Node head) {
+    Node curr = head;
+    int target = 4;
+
+    while (curr != null) {
+        Node nextNode = curr.next;
+
+        if (curr.data == target) {
+
+            if (curr == head) {
+                head = curr.next;
+            }
+
+            if (curr.prev != null) {
+                curr.prev.next = curr.next;
+            }
+
+            if (curr.next != null) {
+                curr.next.prev = curr.prev;
+            }
+        }
+
+        curr = nextNode;
+    }
+
+    Node temp = head;
+    while (temp != null) {
+        System.out.println(temp.data);
+        temp = temp.next;
+    }
+}
 
 Segregation
 ==============
