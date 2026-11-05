@@ -339,6 +339,62 @@ System.out.println(st);
     }
 }
 
+power
+============================
+ex:2^5 is 32
+2^6 is 64
+
+brute force
+=========================
+continuously multiply the elements upto  the n .it takes linear time complextiy .O(n)
+int ans=1;
+for(int i=1;i<n;i++){
+ans*=n;
+}
+return ans;
+}
+
+better 
+=================
+public class PowerEx{
+    public static void main(String[] args){
+        int x=7;
+        int n=3;
+        findPower(x,n);
+    }
+    static void findPower(int x,int n){
+        int ans=1;
+int nn=1;
+if(n<0){
+nn=-n
+}
+        while(n!=0){
+            if(n%2!=0){
+                ans*=x;
+                n=n-1;}
+            else{
+                x=x*x;
+                n=n/2;}}
+        System.out.println(ans);}}
+if(n<0){
+ans=1/ans
+}
+tc:O(logn)
+recursion
+============================================
+
+static double power(double x, int n) {
+
+    if(n == 0) {
+        return 1;
+    }
+
+    if(n % 2 == 0) {
+        return power(x * x, n / 2);
+    }
+
+    return x * power(x, n - 1);
+}
 
 
 
