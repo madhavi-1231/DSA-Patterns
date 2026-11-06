@@ -1,5 +1,80 @@
 # Bit Manipulation Notes
 
+decimal should be converted into binary (111) base 2
+ number 13 is connverted into binary ->(1 1 0 1)
+
+1s complement
+==========================
+(13)=>  (1101)->(0010)  covert into binary and after changes the bits 1 to 0 and 0 to 1
+2s complement
+===================
+convert into binary and after 1s complement and then add 1 into that
+
+->   >> right shift   x>>k   x/2 power(k)    
+-> << left shift    x<<k  2*x power k
+
+
+check ith bit set or not
+==============================
+if((n&(1<<i))!=0){
+return true;
+}
+return false;
+}
+===================================
+endhuku 1<<i use chesaru ante 
+===================================
+0001 for checking 1st bit set or not    1<<i
+0010   for checking 2nd bit set or not 
+0100 for checking 3rd bit
+1000   for checking 4th bit
+ 
+check if the number is even or odd 
+====================================
+-> if we observe that all the even numbers 1st bits always zero thats why we use condition as (n&1)==0 
+if((n&1)==0){
+return true;
+}
+else {
+return false;
+}
+
+power of 2
+=======================================
+
+power of 2 condition is n&(n-1)==0 then it is a power of 2 otherwise it is not power of 2 
+why because
+16 is a power of 2 10000 
+16-1 is 15 binary is 01111  then 16&15 is 0 becuse it is a power of 2
+if((n&(n-1))==0){
+return true;
+}
+return false;
+}
+-> -13   binary 1101  2s complement 0010+1=0011
+
+swap 2 numbers without temp var
+======================================
+why only we use ^ why not & | , not
+becuse and ,or ,and not information loss that means if both 1 then 1 like information loss happen when we use ^ not like if both are if both are same then 0 otherwise 1
+
+a=a^b
+b=a^b
+a=a^b
+count the number of set bits
+-----------------------------------------------
+while(n!=0){
+if((n&1)==0){
+count++;
+}
+n=n>>1;
+}
+
+take the 13 as a number -> 1101  check n&1 if it is 1 then increments the count value  by 1 and then to move that right bit
+it becomes 0110 .
+if it is n&1 is 0 then that bit is not a set bit that why we no need to count the bit . then moves that to right it becomes
+0011 it n&1 is 1 then count and after move 0001 count move theen it becomes 0 then we stop the loop
+
 ## 1. Count Set Bits
 
 ### Method 1: Right Shift
