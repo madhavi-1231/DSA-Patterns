@@ -1,0 +1,72 @@
+Balanced Parentheses
+================================================'
+import java.util.*;
+public class BalancedParentheses {
+     public static void main(String[] args){
+        String s="()()()()";
+        Stack<Character> st=new Stack<>();
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)=='(' ||  s.charAt(i)=='{' || s.charAt(i)=='['){
+                   st.push(s.charAt(i));
+            }
+            else{
+                if(st.isEmpty()){
+                    System.out.println("false");
+                    return;
+                }
+                if(st.peek()=='(' &&  s.charAt(i)==')' || st.peek()=='{' && s.charAt(i)=='}' || st.peek()=='[' && s.charAt(i)==']'){
+                    st.pop();
+                }
+            }
+        }
+        if(st.isEmpty()){
+            System.out.println("true");
+        }
+        else{
+            System.out.println("false");
+        }
+     }   
+}
+MinStack
+=============================================
+code
+==============================
+import java.util.*;
+public class MinStack {
+          static Stack<Pair> st=new Stack<>();
+          static int mini=-1;
+    public static void main(String[] args){
+        push(-2);
+        push(0);
+        push(-8);
+        push(-3);
+        System.out.println(getMin());
+        System.out.println(top());
+        System.out.println(pop());
+    }
+    static void push(int ele){
+        mini=Math.min(mini,ele);
+        st.push(new Pair(ele,mini));
+    }
+    static int pop(){
+       int ans= st.pop().val;
+       return ans;
+    }
+    static int top(){
+        int ans=st.peek().val;
+        return ans;
+    }
+    static int getMin(){
+        int ans=st.peek().index;
+        return ans;
+    }
+}
+class Pair{
+    int val;
+    int index;
+    Pair(int val,int index){
+        this.val=val;
+        this.index=index;
+    }
+}
+
