@@ -219,4 +219,69 @@ public class SumofSubArrayMinimum123 {
     System.out.println(sum);
  }   
 }
+Trapping Rain Water
+===================================
+leftmaxheight-rightmax height of the current element that mush only it will store.
+min(leftMax,rightMax)-arr[i];     
+brute  force
+======================
+int total=0;
+for(int i=0;i<n;i++){
+int leftMax=0;
+int rightMax=0;
+for(int j=0;j<=i;j++){
+    if(height[j]>leftMax){
+leftMax=height[j];
+}
+}
+for(int j=i;j<n;j++){
+if(height[j]>rightMax){
+rightMax=height[j];
+}
+}
+total+=Math.min(leftMax,rightMax)-height[i];
+}}time complexity:O(n^2)
+space complexity:O(1)
+
+better
+==================
+int leftMax[0]=0;
+int rightMax[0]=0;
+for(int i=0;i<leftMax.length;i++){
+leftMax[i]=Math.max(leftMax[i-1],arr[i]);
+}
+int rightMax[n-1]=0;
+for(int i=n-2;i>=0;i--){
+rightMax[i]=Math.max(rightMax[i+1],arr[i]);;
+}
+total+=Math.min(rightMax[i],leftMax[i])-height[i];
+}
+}
+optimal
+============
+
+int left=0;
+int right=nums.length-1;
+int leftMax=INteger.MIN_VALUE;
+int rightMax=Integer.MIN_VALUE;
+int total=0;
+while(left<right){
+if(nums[left]<nums[right]){
+if(nums[left]>leftMax){
+leftMax=nums[left];
+}
+else{
+total+=leftMax-nums[left];
+}
+left++;
+}
+else{
+if(nums[right]>rightMax){
+rightMax=nums[right];
+}
+else{
+total+=rightMax-nums[right];}
+}
+right--;
+}
 
