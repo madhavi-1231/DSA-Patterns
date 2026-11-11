@@ -345,3 +345,25 @@ public class FindLargestRectangleHistogram {
 
 
 
+sliding window maximum
+==================================
+for each wiindow we need to find maximum element so that it takes complexity of O(n*k)
+to reduce that we monotonic stack.in which the elements are stored in decreasing order.
+if the size of window crosses we remove that element
+
+optimal
+============================================
+Deque<Integer> dq=new ArrayDeque<Integer>();
+int ans[]=new int[n-k+1];
+for(int i=0;i<arr.length;i++){
+if(!dq.isEmpty() && dq.peekFirst()<=i-k){
+dq.pollFirst();
+}
+while(!dq.isEmpty() &&nums[dq.peekLast()]<=nums[i]){
+dq.pollLast();
+}
+dq.offerLast(i);
+if(i>=k-1){
+res[idx++]=nums[dq.peekFirst()];
+}
+}
