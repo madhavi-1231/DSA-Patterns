@@ -9,3 +9,61 @@
 | First negative in every window | Fixed Window            | Queue             |
 | Maximum in every window        | Fixed Window            | Deque             |
 | Exactly K                      | AtMost(K) − AtMost(K−1) | HashMap/Variables |
+
+
+                
+subarrayswithkdifferentIntegers
+=============================================
+import java.util.*;
+public class SubArraysWithKDifferentIntegers {
+    public static void main(String[] args){
+        int nums[]={1,2,1,3,4};
+        int k=3;
+        int count=0;
+        for(int i=0;i<nums.length;i++){
+            HashSet<Integer> set=new HashSet<>();
+            for(int j=i;j<nums.length;j++){
+                                set.add(nums[j]);
+
+                if(set.size()>k){
+                    break;
+                }
+                if(set.size()==k){
+                    count++;}}}
+        System.out.println(count);
+    }
+}
+it takes the complexity of O(n^2)
+space complexity O(1)
+by using 2 pointers the right stuck we cannot calculate all the valid output count so that we use hashmap+sliding window appraoch
+
+optimal
+========================
+import java.util.*;
+public class SubArraysWithKDifferentIntegers {
+     public static void main(String[] args){
+        int nums[]={1,2,1,2,3};
+        int k=2;
+       int ans=AtMost(k,nums)-AtMost(k-1,nums);
+       System.out.println(ans);
+    }
+    static int AtMost(int k,int nums[]){
+        int count=0;
+        HashMap<Integer,Integer> map=new HashMap<>();
+        int left=0;
+        for(int right=0;right<nums.length;right++){
+                map.put(nums[right],map.getOrDefault(nums[right],0)+1);
+                while(map.size()>k){
+                    map.put(nums[left],map.get(nums[left])-1);
+                    if(map.get(nums[left])==0){
+                        map.remove(nums[left]);
+                    }
+                    left++;
+                }
+                 count+=right-left+1;
+        }
+        return count;
+    }
+}
+output:O(n)
+
