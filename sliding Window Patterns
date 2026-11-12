@@ -10,6 +10,14 @@
 | Maximum in every window        | Fixed Window            | Deque             |
 | Exactly K                      | AtMost(K) − AtMost(K−1) | HashMap/Variables |
 
+1. Brute Force – O(n²)
+Idea: Generate every possible subarray and check whether it satisfies the condition.
+2. Sliding Window – O(n)
+Instead of generating every subarray, use two pointers (left and right) and maintain a valid window.
+This approach is useful when the condition allows us to expand and shrink the window efficiently.
+3. Exactly K = AtMost(K) - AtMost(K-1)
+Idea: Sometimes directly counting exactly K is difficult. So we calculate two easier answers and subtract them.
+Exactly(K)=AtMost(K)-AtMost(K-1)
 
                 
 subarrayswithkdifferentIntegers
@@ -66,4 +74,55 @@ public class SubArraysWithKDifferentIntegers {
     }
 }
 output:O(n)
+26
+a-z
+
+52
+A-Z + a-z
+
+62
+A-Z + a-z + 0-9
+
+128
+ASCII 0-127
+
+256
+Byte-sized range 0-255
+minimum window substring
+==========================================
+public class MinimumWindowSubstring {
+    public static void main(String[] args){
+        String s="ADOBECODEBANC";
+        String t="ABC";
+        int m[]=new int[256];
+        int n[]=new int[256];
+        for(int i=0;i<t.length();i++){
+            m[t.charAt(i)]++;
+    }
+    int mini=Integer.MAX_VALUE;
+    int j=0;
+    int startIndex=0;
+    for(int i=0;i<s.length();i++){
+         n[s.charAt(i)]++;
+          while(isValid(m,n)){
+            if(i-j+1<mini){
+                mini=i-j+1;
+                startIndex=j;
+            }
+            n[s.charAt(j)]--;
+            j++;
+          }
+    }
+    System.out.println(s.substring(startIndex,startIndex+mini));
+}
+    static boolean isValid(int m[],int n[]){
+        for(int i=0;i<m.length;i++){
+            if(m[i]>n[i]){
+               return false;
+            }
+        }
+        return true;
+    }
+
+}
 
