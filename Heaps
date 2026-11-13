@@ -1,0 +1,29 @@
+Heap is a type of complete binary tree that follows a specific ordering between parent and child nodes.
+it is mainly used to efficiently find the maximum or minimum element.
+types of heaps
+========================
+there are  2 types of heaps
+1.maxheap
+===========================
+parent node is always greater than or equal to its children.
+the largest element is always the root.
+
+min heap
+=============================
+parent node is always smaller than its children
+the smallest element is always be the root
+
+formulas
+=================
+parent---(i-1)/2
+left child-----2*i+1
+right child----------2*i+2;
+
+4. Basic Operations
+Operation	         Time Complexity
+Insert               	O(log n)
+Delete root         	O(log n)
+Get Min/Max	            O(1)
+Heapify	              O(log n)
+Build Heap              O(n)
+Search	                O(n)
