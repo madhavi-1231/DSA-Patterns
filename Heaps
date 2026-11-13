@@ -81,5 +81,138 @@ public class ConvertMinheapIntoMaxHeap {
             nums[right]=temp;
             heapify(nums,n,largest);}}}
 
+merge k sorted lists
+=====================================
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        PriorityQueue<Integer> pq=new PriorityQueue<>();
+        for(int i=0;i<lists.length;i++){
+            ListNode temp=lists[i];
+            while(temp!=null){
+                pq.add(temp.val);
+                temp=temp.next;
+            }
+        }
+            ListNode dummy=new ListNode(-1);
+            ListNode curr=dummy;
+            while(!pq.isEmpty()){
+                int val=pq.poll();
+                curr.next=new ListNode(val);
+                curr=curr.next;
+            }
+            return dummy.next;}}
+TaskScheduler
+==============================================================
+class Solution {
+    public int leastInterval(char[] tasks, int n) {
+        int freq[]=new int[26];
+        for(char ch:tasks){
+            freq[ch-'A']++;
+        }
+        PriorityQueue<Integer> pq=new PriorityQueue<>((a,b)->b-a);
+        for(int i=0;i<freq.length;i++){
+              if(freq[i]>0){
+                pq.add(freq[i]);
+              }
+        }
+        int time=0;
+        while(!pq.isEmpty()){
+            int cycles=n+1;
+            List<Integer> temp=new ArrayList<>();
+            int taskCount=0;
+            for(int i=0;i<cycles;i++){
+                  if(!pq.isEmpty()){
+                    int current=pq.poll();
+                    current--;
+                    if(current>0){
+                        temp.add(current);
+                    }
+                    taskCount++;
+                  }
+            }
+            for(int remain:temp){
+                pq.add(remain);
+            }
+            if(!pq.isEmpty()){
+                time+=cycles;
+            }
+            else{
+                time+=taskCount;
+            }
+        }
+        return time;
+    }
+}
+HandOfStraights
+======================
+import java.util.*;
+public class HandOfStraights {
+    public static void main(String[] args){
+        int hand[]={1,2,3,6,2,3,4,7};
+        int groupSize=3;
+        if(hand.length%groupSize!=0){
+            System.out.println("false");
+            return;
+        }
+        TreeMap<Integer,Integer> map=new TreeMap<>();
+        for(int num:hand){
+            map.put(num,map.getOrDefault(num, 0)+1);
+        }
+        while(!map.isEmpty()){
+            int first=map.firstKey();
+            for(int i=0;i<groupSize;i++){
+                int current=first+i;
+                if(!map.containsKey(current)){
+                  System.out.println(false);
+                  return;
+                }
+                map.put(current,map.get(current)-1);
+                if(map.get(current)==0){
+                    map.remove(current);
+                }
+            }
+        }
+
+TopKFrequentElements
+==============================================
+import java.util.*;
+public class TopKFrequentElements {
+    public static void main(String[] args){
+        int nums[]={1,1,1,2,2,3};
+        int k=2;
+        HashMap<Integer,Integer> map=new HashMap<>();
+        for(int i=0;i<nums.length;i++){
+            map.put(nums[i],map.getOrDefault(nums[i],0)+1);
+        }
+PriorityQueue<Map.Entry<Integer,Integer>> pq =
+    new PriorityQueue<>((a, b) -> Integer.compare(b.getValue(), a.getValue()));
+    pq.addAll(map.entrySet());
+    while(!pq.isEmpty() && k>0){
+        k--;
+        System.out.println(pq.poll().getKey());
+    }
+
+    }
+}       System.out.println(true);
+    }
+}
+minimum cost  to connect strings
+=========================================
+class Solution {
+    public int connectSticks(List<Integer> sticks) {
+    int sum=0;
+    PriorityQueue<Integer> pq=new PriorityQueue<>();
+    for(int i=0;i<sticks.size();i++){
+       pq.add(sticks.get(i));
+    }
+    int total=0;
+    while(pq.size()>1){
+        int a=pq.poll();
+        int b=pq.poll();
+        sum=a+b;
+        total+=sum;
+        pq.add(sum);
+    }
+        return total;}}
 
 
