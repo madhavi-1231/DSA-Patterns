@@ -27,3 +27,59 @@ Get Min/Max	            O(1)
 Heapify	              O(log n)
 Build Heap              O(n)
 Search	                O(n)
+
+check the array represents the minheap
+================================================
+public class CheckMinheapOrNot {
+    public static void main(String[] args){
+        int arr[]={10,20,30,25,15};
+        for(int i=0;i<=arr.length/2;i++){
+            int left=2*i+1;
+            int right=2*i+2;
+            int n=arr.length;
+            if(left<n && arr[left]<arr[i]){
+                System.out.println("false");
+                return;
+            }
+            if(right<n && arr[right]<arr[i]){
+                
+                System.out.println("false");
+                return;
+            }
+        }
+        System.out.println("true");
+    }
+}
+convert minheap to maxheap
+=====================================
+public class ConvertMinheapIntoMaxHeap {
+    public static void main(String[] args){
+         int nums[]={10,20,30,21,23};
+         //initially we need to find the non -leaf node
+         // for finding non leaf node we use the formula is (n-2)/2
+         int n=nums.length;
+         for(int i=(n-2)/2;i>=0;i--){
+               heapify(nums,n,i);
+         }
+         for(int i=0;i<nums.length;i++){
+             System.out.println(nums[i]);
+         }
+    }
+    static void heapify(int nums[],int n,int i){
+        int left=2*i+1;
+        int right=2*i+2;
+        int largest=i;
+        if(left<n && nums[left]>nums[largest]){
+            largest=left;
+        }
+        if(right<n && nums[right]>nums[left]){
+            largest=right;
+        }
+        if(largest!=i){
+            int temp=nums[i];
+            nums[i]=nums[right];
+            nums[right]=temp;
+            heapify(nums,n,largest);}}}
+
+
+
