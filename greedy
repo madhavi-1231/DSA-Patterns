@@ -1,0 +1,92 @@
+lemonage change
+===================================
+i have stuck on onecondition that is change to give 20  rupees
+that are if cnt5>0 and cnt10>0 then only i can able to give change and one more is if we have 5 rupess 3 coins then also we can able to give change]
+other than these 2 we cant give
+
+public class LemonadeChange {
+    public static void main(String[]  args){
+        int bills[]={5,5,10,10,20};
+        int cnt5=0;
+        int cnt10=0;
+        int cnt20=0;
+        for(int i=0;i<bills.length;i++){
+            if(bills[i]==5){
+              cnt5+=5;
+            }
+            else if(bills[i]==10){
+                if(cnt5==0){
+                    System.out.println("false");
+                    return;
+                }
+                cnt10+=10;;
+                cnt5-=5;;
+            }
+            else{
+                if(cnt5<0 || cnt10<0){
+                     System.out.println("false");
+                     return;
+                }
+              cnt20+=20;
+              cnt5-=5;
+              cnt10-=10;
+            }
+        }
+        System.out.println("true");
+    }
+}
+valid parenthese
+=================================
+public class ValidParenthesesChecker{
+    public static void main(String[] args){
+        String s="())";
+        int cnt=0;
+        System.out.println(valid(s,0,cnt));
+    }
+    static boolean valid(String s,int index,int cnt){
+        if(cnt<0){
+            return false;
+        }
+        if(index==s.length()){
+            if(cnt==0){
+                return true;
+            }
+            return false;
+        }
+        if(s.charAt(index)=='('){
+              return valid(s,index+1,cnt+1);
+        }
+        if(s.charAt(index)==')'){
+           return valid(s,index+1,cnt+1);
+        }
+        else{
+                  return valid(s,index+1,cnt+1) || valid(s,index+1,cnt+1) || valid(s,index+1,cnt);
+        }
+    }
+}
+
+import java.util.*;
+
+public class NMeetingRooms {
+    public static void main(String[] args) {
+
+        int newArr[][] = {
+            {10,20}, {12,25}, {20,30}
+        };
+
+        Arrays.sort(newArr, (a,b) -> a[1] - b[1]);
+
+        int cnt = 1;
+        int last = newArr[0][1];
+
+        for (int i = 1; i < newArr.length; i++) {
+
+            if (last <= newArr[i][0]) {
+                cnt++;
+                last = newArr[i][1];
+            }
+        }
+
+        System.out.println(cnt);
+    }
+}
